@@ -26,7 +26,7 @@ npm install jconfirm
 
 Dependencies
 =======
-jQuery 1.7+
+jQuery 3.0+
 
 Setup
 ======
