@@ -111,6 +111,7 @@ You can set any of the options you see above globally using this syntax:
 $.jConfirm.defaults.question = 'Are you sure?';
 $.jConfirm.defaults.confirm_text = 'Yes';
 $.jConfirm.defaults.deny_text = 'No';
+$.jConfirm.defaults.theme = 'black';
 ```
 
 You can override the global and passed options by setting data attributes:
@@ -140,6 +141,10 @@ $(function(){
     theme: 'bootstrap-4'
   });
 });
+```
+or globally:
+```javascript
+$.jConfirm.defaults.theme = 'bootstrap-4';
 ```
 
 Preferred positioning:
