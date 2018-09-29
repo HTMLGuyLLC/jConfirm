@@ -33,31 +33,34 @@
                 html += "<div class='jc-question'>"+options.question+"</div>";
             }
             html += "<div class='jc-buttons-wrap'>";
-            if( !options.btns )
-            {
-                options.btns = [
-                    {
-                        text:options.confirm_text,
-                        class:'jc-confirm jc-button-bordered',
-                        event:'confirm'
-                    }
-                ];
-                //if include deny button
-                if( options.show_deny_btn )
-                {
-                    options.btns.push({
-                        text:options.deny_text,
-                        class:'jc-deny',
-                        event:'deny'
-                    });
-                }
-            }
 
-            $.each(options.btns, function(key,btn){
-                html += "<div class='jc-button-wrap'>";
-                html += "<a href='#' data-event='"+btn.event+"' class='jc-button "+btn.class+"'>"+btn.text+"</a>";
-                html += "</div>";
-            });
+        //if no buttons were provided (default), set confirm and deny
+        if( !options.btns )
+        {
+            options.btns = [
+                {
+                    text:options.confirm_text,
+                    class:'jc-confirm jc-button-bordered',
+                    event:'confirm'
+                }
+            ];
+            //if include deny button
+            if( options.show_deny_btn )
+            {
+                options.btns.push({
+                    text:options.deny_text,
+                    class:'jc-deny',
+                    event:'deny'
+                });
+            }
+        }
+
+        //loop through buttons and add to html
+        $.each(options.btns, function(key,btn){
+            html += "<div class='jc-button-wrap'>";
+            html += "<a href='#' data-event='"+btn.event+"' class='jc-button "+btn.class+"'>"+btn.text+"</a>";
+            html += "</div>";
+        });
 
             html += "</div>";
             html += "</div>";
@@ -82,7 +85,7 @@
                 if( typeof existing !== 'undefined' && existing !== null ) {
 
                     //if currently shown, hide it
-                    existing.isCurrentlyShown() && existing.hide();
+                    existing.isVisible() && existing.hide();
 
                     //disable on-click handler
                     existing.dom_wrapped.off(existing.onClickHandler);
@@ -91,10 +94,10 @@
                     existing.dom_wrapped.data(existing.dataAttr, null);
                 }
             },
-            //initialize
+            //initialize the plugin on this element
             initialize: function(){
                 //attach on click handler to show jConfirm
-                helper.dom_wrapped.on('click', helper.onClickHandler);
+                helper.dom_wrapped.on('click touch', helper.onClickHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -105,7 +108,7 @@
             //on click of element, show it
             onClickHandler: function(e){
                 e.preventDefault();
-                if( helper.isCurrentlyShown() )
+                if( helper.isVisible() )
                 {
                     helper.hide();
                 }
@@ -115,10 +118,10 @@
                 }
                 return false;
             },
-            //shows the tooltip for this element
+            //shows the tooltip
             show: function(){
                 //if already visible, don't show
-                if( helper.isCurrentlyShown() )
+                if( helper.isVisible() )
                 {
                     return false;
                 }
@@ -140,7 +143,7 @@
                 $(window).on('resize', helper.onResize);
                 //add on click to body to hide
                 if( helper.hide_on_click ){
-                    $(document).on('click', helper.onClickOutside);
+                    $(document).on('click touc', helper.onClickOutside);
                 }
                 //give the tooltip an id so we can set accessibility props
                 var id = 'jconfirm'+Date.now();
@@ -153,8 +156,8 @@
                     'tooltip':helper.tooltip
                 });
             },
-            //is currently shown
-            isCurrentlyShown: function(){
+            //is this tooltip visible
+            isVisible: function(){
                 return $.jConfirm.current !== null && helper.dom === $.jConfirm.current.dom;
             },
             //hides the tooltip for this element
@@ -163,7 +166,7 @@
                 $(window).off('resize', helper.onResize);
                 //remove body on click outside
                 if( helper.hide_on_click ) {
-                    $(document).off('click', helper.onClickOutside);
+                    $(document).off('click touch', helper.onClickOutside);
                 }
                 //remove accessbility props
                 helper.dom.attr('aria-describedby', null);
@@ -174,12 +177,13 @@
                 //trigger event on show and pass the tooltip
                 helper.dom.trigger('jc-hide');
             },
-            //position the tooltip on resize
+            //on body resized
             onResize: function(){
+              //hiding and showing the tooltip will update it's position
               helper.hide();
               helper.show();
             },
-            //on click outside
+            //on click outside of the tooltip
             onClickOutside: function(e){
               var target = $(e.target);
               if( !target.hasClass('jc-tooltip') && !target.parents('.jc-tooltip:first').length )
@@ -205,30 +209,30 @@
                     return false;
                 });
             },
-            //position tooltip based on where the dom element was
+            //position tooltip based on where the clicked element is
             positionTooltip: function(){
 
-                helper.positionDebug('-- Starting positioning --');
+                helper.positionDebug('-- Start positioning --');
 
                 //cache reference to arrow
                 var arrow = helper.tooltip.find('.jc-arrow');
 
                 //first try to fit it with the preferred position
-                var [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.detectFit(helper.position);
+                var [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.calculateSafePosition(helper.position);
 
                 //if couldn't fit, add class tight-fit and run again
                 if( typeof left === 'undefined' )
                 {
                     helper.positionDebug('Couldn\'t fit preferred position, downsizing and trying again');
                     helper.tooltip.addClass('jc-tight-fit');
-                    [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.detectFit(helper.position);
+                    [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.calculateSafePosition(helper.position);
                 }
 
                 //if still couldn't fit, switch to auto
                 if( typeof left === 'undefined' && helper.position !== 'auto' )
                 {
                     helper.positionDebug('Couldn\'t fit preferred position');
-                    [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.detectFit('auto');
+                    [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.calculateSafePosition('auto');
                 }
 
                 //fallback to centered (modal style)
@@ -266,12 +270,12 @@
                 return helper;
             },
             //detects where it will fit and returns the positioning info
-            detectFit: function(position)
+            calculateSafePosition: function(position)
             {
                 //cache reference to arrow
                 var arrow = helper.tooltip.find('.jc-arrow');
 
-                //get position of clicked element
+                //get position + size of clicked element
                 var elem_position = helper.dom_wrapped.position();
                 var elem_height = helper.dom_wrapped.outerHeight();
                 var elem_width = helper.dom_wrapped.outerWidth();
@@ -328,9 +332,6 @@
                 //vars we need for positioning
                 var arrow_dir, left, top;
 
-                //the following comments refer to the general location of the clicked element
-
-                //top middle
                 if( (position === 'auto' || position === 'bottom') && fits_below && fits_left_half && fits_right_half )
                 {
                     helper.positionDebug('Displaying below, centered');
@@ -338,7 +339,6 @@
                     left = elem_position.left - (tooltip_width/2) + (elem_width/2);
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
-                //bottom middle
                 else if( (position === 'auto' || position === 'top') && fits_above && fits_left_half && fits_right_half )
                 {
                     helper.positionDebug('Displaying above, centered');
@@ -346,7 +346,6 @@
                     left = elem_position.left - (tooltip_width/2) + (elem_width/2);
                     top = elem_position.top - tooltip_height - (elem_height/2) - (arrow_height/2);
                 }
-                //middle right
                 else if( (position === 'auto' || position === 'left') && fits_left && fits_below_half && fits_above_half )
                 {
                     helper.positionDebug('Displaying left, centered');
@@ -354,7 +353,6 @@
                     left = elem_position.left - tooltip_width - (arrow_width/2);
                     top = elem_position.top + (elem_height/2) - (tooltip_height/2);
                 }
-                //middle left
                 else if( (position === 'auto' || position === 'right') && fits_right && fits_below_half && fits_above_half )
                 {
                     helper.positionDebug('Displaying right, centered');
@@ -362,7 +360,6 @@
                     left = elem_position.left + elem_width + (arrow_width/2);
                     top = elem_position.top + (elem_height/2) - (tooltip_height/2);
                 }
-                //top left
                 else if( (position === 'auto' || position === 'bottom') && fits_below && fits_right_full )
                 {
                     helper.positionDebug('Displaying below, to the right');
@@ -370,7 +367,6 @@
                     left = elem_position.left;
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
-                //top right
                 else if( (position === 'auto' || position === 'bottom') && fits_below && fits_left_full )
                 {
                     helper.positionDebug('Displaying below, to the left');
@@ -378,7 +374,6 @@
                     left = elem_position.left + elem_width - tooltip_width;
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
-                //bottom left
                 else if( (position === 'auto' || position === 'top') && fits_above && fits_right_full )
                 {
                     helper.positionDebug('Displaying above, to the right');
@@ -386,7 +381,6 @@
                     left = elem_position.left;
                     top = elem_position.top - tooltip_height - (elem_height/2) - (arrow_height/2);
                 }
-                //bottom right
                 else if( (position === 'auto' || position === 'top') && fits_above && fits_left_full )
                 {
                     helper.positionDebug('Displaying above, to the left');
@@ -406,15 +400,13 @@
             }
         };
 
-        //If this is an existing jConfirm, destroy first
         helper.destroy();
 
-        //initialize
         return helper.initialize();
     };
 
     $.jConfirm = {};
-    //default current to null
+    //initially, there is not a tooltip showing
     $.jConfirm.current = null;
 
     $.jConfirm.defaults = {
