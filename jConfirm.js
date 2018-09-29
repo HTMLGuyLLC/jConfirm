@@ -85,7 +85,8 @@
                 if( typeof existing !== 'undefined' && existing !== null ) {
 
                     //disable handler
-                    existing.dom_wrapped.off('touchstart mousedown click', existing.onClickHandler);
+                    existing.dom_wrapped.off('touchstart mousedown', existing.toggleTooltipHandler);
+                    existing.dom_wrapped.off('click', existing.preventDefaultHandler);
 
                     //attach resize handler to reposition tooltip
                     $(window).off('resize', existing.onResize);
@@ -102,7 +103,8 @@
                 //attach on handler to show tooltip
                 //use touchstart and mousedown just like if you click outside the tooltip to close it
                 //this way it blocks the hide if you click the button a second time to close the tooltip
-                helper.dom_wrapped.on('touchstart mousedown click', helper.onClickHandler);
+                helper.dom_wrapped.on('touchstart mousedown', helper.toggleTooltipHandler);
+                helper.dom_wrapped.on('click', helper.preventDefaultHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -110,10 +112,15 @@
                 //return dom for chaining of event handlers and such
                 return helper.dom;
             },
-            //on click of element, show it
-            onClickHandler: function(e){
+            //on click of element, prevent default
+            preventDefaultHandler: function(e){
                 e.preventDefault();
-                e.stopPropagation();
+                //prevent click following href
+                return false;
+            },
+            //on click of element, show it
+            toggleTooltipHandler: function(e){
+                e.preventDefault();
                 if( helper.isVisible() )
                 {
                     helper.hide();
