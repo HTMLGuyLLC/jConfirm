@@ -12,7 +12,7 @@
   "homepage": "https://htmlguyllc.github.io/jConfirm/",
   "private": false,
   "dependencies": {
-    "jquery": "^1.7.1"
+    "jquery": "^2.2.4"
   },
   "license":{
     "type": "MIT",
