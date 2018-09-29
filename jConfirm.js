@@ -88,7 +88,7 @@
                     existing.isVisible() && existing.hide();
 
                     //disable on-click handler
-                    existing.dom_wrapped.off(existing.onClickHandler);
+                    existing.dom_wrapped.off('click', existing.onClickHandler);
 
                     //detach from dom
                     existing.dom_wrapped.data(existing.dataAttr, null);
