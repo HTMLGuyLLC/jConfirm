@@ -102,7 +102,8 @@ $(function(){
   current_tooltip.dom;
   //hides the current tooltip (remember to make sure there is one first)
   //returns the original dom element
-  current_tooltip.hide();
+  //you can pass false to disable triggering the hide event
+  current_tooltip.hide(false);
 });
 ```
 

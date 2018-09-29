@@ -132,7 +132,7 @@
                 return false;
             },
             //shows the tooltip
-            show: function(){
+            show: function(trigger_event){
                 //if already visible, don't show
                 if( helper.isVisible() )
                 {
@@ -172,16 +172,18 @@
                     hide: helper.hide
                 };
                 //trigger event on show and pass the tooltip
-                helper.dom.trigger('jc-show', {
-                    'tooltip':helper.tooltip
-                });
+                if( typeof trigger_event === 'undefined' || trigger_event ) {
+                    helper.dom.trigger('jc-show', {
+                        'tooltip': helper.tooltip
+                    });
+                }
             },
             //is this tooltip visible
             isVisible: function(){
                 return $.jConfirm.current !== null && helper.dom === $.jConfirm.current.dom;
             },
             //hides the tooltip for this element
-            hide: function(){
+            hide: function(trigger_event){
                 //remove scroll handler to reposition tooltip
                 $(window).off('resize', helper.onResize);
                 //remove body on click outside
@@ -194,15 +196,17 @@
                 helper.dom_wrapped.data(helper.dataAttr).tooltip.remove();
                 //remove current
                 $.jConfirm.current = null;
-                //trigger event on show and pass the tooltip
-                helper.dom.trigger('jc-hide');
+                //trigger hide event
+                if( typeof trigger_event === 'undefined' || trigger_event ) {
+                    helper.dom.trigger('jc-hide');
+                }
                 return helper.dom;
             },
             //on body resized
             onResize: function(){
               //hiding and showing the tooltip will update it's position
-              helper.hide();
-              helper.show();
+              helper.hide(false);
+              helper.show(false);
             },
             //on click outside of the tooltip
             onClickOutside: function(e){
