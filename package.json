@@ -1,0 +1,21 @@
+{
+  "name": "jConfirm",
+  "version": "3.0.0",
+  "description": "jQuery confirmation tooltip plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HTMLGuyLLC/jConfirm"
+  },
+  "bugs": {
+    "url": "https://github.com/HTMLGuyLLC/jConfirm/issues"
+  },
+  "homepage": "https://htmlguyllc.github.io/jConfirm/",
+  "private": false,
+  "dependencies": {
+    "jquery": "^1.7.1"
+  },
+  "license":{
+    "type": "MIT",
+    "url": "https://www.opensource.org/licenses/mit-license.php"
+  }
+}

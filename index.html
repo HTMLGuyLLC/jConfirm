@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>jConfirm - jQuery Confirmation Tooltip</title>
+
+    <meta property="og:title" content="jConfirm - jQuery Confirmation Tooltip" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://htmlguyllc.github.io/jConfirm/" />
+    <meta property="og:image" content="example.png" />
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:site" content="@HTMLGuyLLC">
+
+    <meta name="description" content="Confirm user actions with a simple tooltip using jConfirm.">
+
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link href="example.png" rel="shortcut icon" type="image/x-icon">
+    <link href="example.png" rel="apple-touch-icon">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="jConfirm.css">
+    <style>
+        body,html
+        {
+            margin: 0px;
+            font-family: Arial;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="body text-center">
+
+    <!-- Page title -->
+    <div style="margin-top: 10%;">
+        <h1>jConfirm - Confirmation Tooltip Demo Page</h1>
+        <h3>Version 3</h3>
+        <a href="https://github.com/HTMLGuyLLC/jConfirm" class="btn btn-success">Get it on Github</a>
+        <a href="https://htmlguy.com" target="_blank" class="btn btn-secondary">Created by HTMLGuy</a>
+        <br><br>
+        Related:
+        <a href="https://htmlguyllc.github.io/jAlert/">jAlert</a> |
+        <a href="https://htmlguyllc.github.io/jTimeout/">jTimeout</a>
+    </div>
+
+    <div style="margin-top: 100px">
+        Preferred Placement:<br>
+        <a href="#" data-toggle="confirm" data-position="top">Position: Top</a> |
+        <a href="#" data-toggle="confirm" data-position="bottom">Position: Bottom</a> |
+        <a href="#" data-toggle="confirm" data-position="left">Position: Left</a> |
+        <a href="#" data-toggle="confirm" data-position="right">Position: Right</a>
+    </div>
+
+    <div style="margin-top: 100px">
+        Inspiration:<br>
+        <a href="#" data-toggle="confirm" class="btn btn-danger" data-question="This action cannot be undone" data-confirm_text="Ok" data-deny_text="Cancel"><i class="fa fa-trash-o"></i></a>
+        <a href="#" data-toggle="confirm" class="btn btn-success"><i class="fa fa-save"></i></a>
+        <a href="#" data-toggle="confirm" class="btn btn-secondary" data-question="Are you ready to send your message?" data-confirm_text="Yes, send now" data-deny_text="No, cancel"><i class="fa fa-envelope"></i></a>
+        <a href="#" class="btn btn-primary social-share" data-url-to-share="https://htmlguy.com"><i class="fa fa-share-square-o"></i></a>
+        <a href="#" data-toggle="confirm" class="btn btn-info" data-question=""  data-show_deny_btn=false data-confirm_text="Bookmark for Later"><i class="fa fa-bookmark"></i></a>
+    </div>
+
+
+    <!-- Buttons in each corner -->
+    <a href="#" data-toggle="confirm" style="position: absolute; top: 50%; left: 0px;" class="btn btn-secondary"><i class="fa fa-caret-right"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; top: 50%; right: 0px;" class="btn btn-secondary"><i class="fa fa-caret-left"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; top: 0px; left: 50%;" class="btn btn-secondary"><i class="fa fa-caret-down"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; bottom: 0px; left: 50%;" class="btn btn-secondary"><i class="fa fa-caret-up"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; top: 0px; left: 50px;" class="btn btn-secondary"><i class="fa fa-caret-down"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; bottom: 0px; left: 50px;" class="btn btn-secondary"><i class="fa fa-caret-up"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; top: 0px; right: 50px;" class="btn btn-secondary"><i class="fa fa-caret-down"></i></a>
+    <a href="#" data-toggle="confirm" style="position: absolute; bottom: 0px; right: 50px" class="btn btn-secondary"><i class="fa fa-caret-up"></i></a>
+
+    <!-- jQuery and script -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="jConfirm.js"></script>
+
+    <!-- Demos -->
+    <script>
+        $(function(){
+            $('.social-share').jConfirm({
+                question: 'Share to your favorite social media sites!',
+                btns: [
+                    {
+                        text:'Facebook',
+                        event:'facebook-share',
+                        class:'facebook-btn jc-button-bordered'
+                    },
+                    {
+                        text:'Twitter',
+                        event:'twitter-share',
+                        class:'twitter-btn jc-button-bordered'
+                    }
+                ]
+            }).on('facebook-share', function(e){
+                var btn = $(this);
+                console.log('Sharing to facebook: '+btn.data('url-to-share'));
+            }).on('twitter-share', function(e){
+                var btn = $(this);
+                console.log('Sharing to twitter: '+btn.data('url-to-share'));
+            });
+
+            $('[data-toggle="confirm"]').jConfirm({
+                question:'Are you sure?',
+                confirm_text: 'Yes',
+                deny_text: 'No',
+                class: 'sm'
+            }).on('confirm', function(e){
+                console.log("confirm");
+            }).on('deny', function(e){
+                console.log("deny");
+            }).on('jc-show', function(e, value){
+                console.log('js-show');
+            }).on('jc-hide', function(e){
+                console.log('js-hide');
+            });
+        })
+    </script>
+</body>
+</html>

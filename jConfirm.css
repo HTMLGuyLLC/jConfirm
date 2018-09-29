@@ -1,0 +1,190 @@
+.jc-tooltip
+{
+    position: absolute;
+    z-index: 999999;
+    background: #444444;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    min-width: 150px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+/* Centers the tooltip on screens where it won't fit */
+.jc-tooltip.jc-centered
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+/* Stacks the question and buttons vertically for mobile and places it wouldn't normally fit */
+.jc-tooltip.jc-tight-fit
+{
+    flex-direction: column;
+}
+
+.jc-tooltip .jc-question
+{
+    flex: 1;
+    margin: 5px 20px 5px 10px;
+    font-size: 1em;
+    line-height: 1.3em;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+    padding: 5px 0px;
+    white-space: nowrap;
+}
+
+.jc-tooltip .jc-buttons-wrap
+{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.jc-tooltip .jc-button-wrap
+{
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+.jc-tooltip .jc-button
+{
+    text-align: center;
+}
+
+.jc-tooltip .jc-button,
+.jc-tooltip .jc-button:link,
+.jc-tooltip .jc-button:hover,
+.jc-tooltip .jc-button:active,
+.jc-tooltip .jc-button:focus,
+.jc-tooltip .jc-button:visited
+{
+    color: #dadada;
+    padding: 5px 10px;
+    margin: 0px 5px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.jc-tooltip .jc-button.jc-button-bordered,
+.jc-tooltip .jc-button.jc-button-bordered:link,
+.jc-tooltip .jc-button.jc-button-bordered:hover,
+.jc-tooltip .jc-button.jc-button-bordered:active,
+.jc-tooltip .jc-button.jc-button-bordered:focus,
+.jc-tooltip .jc-button.jc-button-bordered:visited
+{
+    border: 1px solid #717070;
+    border-radius: 5px;
+}
+
+.jc-tooltip .jc-button.jc-button-bordered:hover
+{
+    background: #f3f3f3;
+    color: #333;
+}
+
+.jc-tooltip .jc-button:hover
+{
+    color: #fff;
+}
+
+/* Arrow */
+.jc-arrow {
+    border: 15px solid rgba(232, 232, 232, 0);
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    margin-left: -15px;
+}
+/* Arrow - Top */
+.jc-arrow.jc-arrow-top
+{
+    border-bottom-color: #444444;
+    bottom: 100%;
+    left: 50%;
+    top: auto;
+    right: auto;
+}
+/* Arrow - Bottom */
+.jc-arrow.jc-arrow-bottom
+{
+    border-top-color: #444444;
+    top: 100%;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+}
+/* Arrow - Left */
+.jc-arrow.jc-arrow-left
+{
+    border-right-color: #444444;
+    border-width: 16px;
+    margin-left: -17px;
+    left: -15px;
+    right: auto;
+    bottom: auto;
+    top: 50%;
+    margin-top: -15px;
+}
+/* Arrow - Right */
+.jc-arrow.jc-arrow-right
+{
+    border-left-color: #444444;
+    right: -30px;
+    left: auto;
+    bottom: auto;
+    border-width: 15px;
+    margin-left: -17px;
+    top: 50%;
+    margin-top: -15px;
+}
+/* Arrow - Hug Left */
+.jc-arrow.jc-arrow-hug-left
+{
+    left: 30px;
+    right: auto;
+}
+/* Arrow - Hug Right */
+.jc-arrow.jc-arrow-hug-right
+{
+    right: 30px;
+    left: auto;
+}
+
+/* Arrow - Get really close to the left because the button is small */
+.jc-arrow.jc-arrow-hug-left.jc-arrow-super-hug
+{
+    left: 15px;
+    right: auto;
+}
+/* Arrow - Get really close to the right because the button is small  */
+.jc-arrow.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    right: 1px;
+    left: auto;
+}
+/* Arrow - Get really close to the left because the button is small - need to adjust for border radius */
+.jc-arrow.jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-arrow.jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    top: -27px;
+}
+/* Arrow - Get really close to the left because the button is small - need to adjust for border radius */
+.jc-arrow.jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-arrow.jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    top: auto;
+    bottom: -28px;
+}
