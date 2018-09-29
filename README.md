@@ -21,7 +21,7 @@ OR
 
 Use NPM:
 ```html
-npm install jConfirm
+npm install jConfirmTooltips
 ```
 
 Dependencies
