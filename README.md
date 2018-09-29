@@ -19,7 +19,7 @@ Clone this repo to your website's public folder
 
 OR
 
-Use NPM:
+Use NPM (WARNING: NPM doesn't have the package yet. I have to wait 24 hours! Download the files manually till then!):
 ```html
 npm install jconfirm
 ```
