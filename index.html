@@ -54,6 +54,14 @@
         <a href="#" data-toggle="confirm" data-position="right">Position: Right</a>
     </div>
 
+    <div style="margin-top: 100px">
+        Themes:<br>
+        <a href="#" data-toggle="confirm" data-position="top">Default</a> |
+        <a href="#" data-toggle="confirm" data-theme='white' data-position="top">White</a> |
+        <a href="#" data-toggle="confirm" data-theme='bootstrap-4' data-position="top">Bootstrap 4</a> |
+        <a href="#" data-toggle="confirm" data-theme='bootstrap-4-white' data-position="top">Bootstrap 4 White</a>
+    </div>
+
     <div style="margin-top: 100px; margin-bottom: 60px;">
         Inspiration:<br>
         <a href="#" data-toggle="confirm" class="btn btn-danger" data-question="This action cannot be undone" data-confirm_text="Ok" data-deny_text="Cancel"><i class="fa fa-trash-o"></i></a>
@@ -98,12 +106,12 @@
                     {
                         text:'Facebook',
                         event:'facebook-share',
-                        class:'facebook-btn jc-button-bordered'
+                        class:'facebook-btn jc-button-highlight'
                     },
                     {
                         text:'Twitter',
                         event:'twitter-share',
-                        class:'twitter-btn jc-button-bordered'
+                        class:'twitter-btn jc-button-highlight'
                     }
                 ]
             }).on('facebook-share', function(e){

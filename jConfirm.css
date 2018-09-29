@@ -13,7 +13,7 @@
     -webkit-box-sizing: border-box;
 }
 /* Centers the tooltip on screens where it won't fit */
-.jc-tooltip.jc-centered
+.jc-centered
 {
     position: fixed;
     top: 50%;
@@ -21,12 +21,12 @@
 }
 
 /* Stacks the question and buttons vertically for mobile and places it wouldn't normally fit */
-.jc-tooltip.jc-tight-fit
+.jc-tight-fit
 {
     flex-direction: column;
 }
 
-.jc-tooltip .jc-question
+.jc-question
 {
     flex: 1;
     margin: 5px 20px 5px 10px;
@@ -39,7 +39,7 @@
     white-space: nowrap;
 }
 
-.jc-tooltip .jc-buttons-wrap
+.jc-buttons-wrap
 {
     flex: 1;
     display: flex;
@@ -48,59 +48,11 @@
     justify-content: center;
 }
 
-.jc-tooltip .jc-button-wrap
+.jc-button-wrap
 {
     display: flex;
     flex-direction: column;
     white-space: nowrap;
-}
-
-.jc-tooltip .jc-button
-{
-    text-align: center;
-}
-
-.jc-tooltip .jc-button,
-.jc-tooltip .jc-button:link,
-.jc-tooltip .jc-button:hover,
-.jc-tooltip .jc-button:active,
-.jc-tooltip .jc-button:focus,
-.jc-tooltip .jc-button:visited
-{
-    color: #dadada;
-    padding: 5px 10px;
-    margin: 0px 5px;
-    font-size: 1.2em;
-    line-height: 1.5em;
-    text-decoration: none;
-    font-weight: 800;
-    border-radius: 5px;
-}
-
-.jc-tooltip .jc-button.jc-button-bordered,
-.jc-tooltip .jc-button.jc-button-bordered:link,
-.jc-tooltip .jc-button.jc-button-bordered:hover,
-.jc-tooltip .jc-button.jc-button-bordered:active,
-.jc-tooltip .jc-button.jc-button-bordered:focus,
-.jc-tooltip .jc-button.jc-button-bordered:visited
-{
-    border: 1px solid #717070;
-}
-
-.jc-tooltip .jc-button:hover
-{
-    background: #333333;
-}
-
-.jc-tooltip .jc-button.jc-button-bordered:hover
-{
-    background: #f3f3f3;
-    color: #333;
-}
-
-.jc-tooltip .jc-button:hover
-{
-    color: #fff;
 }
 
 /* Arrow */
@@ -114,7 +66,7 @@
     margin-left: -15px;
 }
 /* Arrow - Top */
-.jc-arrow.jc-arrow-top
+.jc-arrow-top
 {
     border-bottom-color: #444444;
     bottom: 100%;
@@ -123,7 +75,7 @@
     right: auto;
 }
 /* Arrow - Bottom */
-.jc-arrow.jc-arrow-bottom
+.jc-arrow-bottom
 {
     border-top-color: #444444;
     top: 100%;
@@ -132,7 +84,7 @@
     right: auto;
 }
 /* Arrow - Left */
-.jc-arrow.jc-arrow-left
+.jc-arrow-left
 {
     border-right-color: #444444;
     border-width: 16px;
@@ -144,7 +96,7 @@
     margin-top: -15px;
 }
 /* Arrow - Right */
-.jc-arrow.jc-arrow-right
+.jc-arrow-right
 {
     border-left-color: #444444;
     right: -30px;
@@ -156,40 +108,187 @@
     margin-top: -15px;
 }
 /* Arrow - Hug Left */
-.jc-arrow.jc-arrow-hug-left
+.jc-arrow-hug-left
 {
     left: 30px;
     right: auto;
 }
 /* Arrow - Hug Right */
-.jc-arrow.jc-arrow-hug-right
+.jc-arrow-hug-right
 {
     right: 30px;
     left: auto;
 }
 
 /* Arrow - Get really close to the left because the button is small */
-.jc-arrow.jc-arrow-hug-left.jc-arrow-super-hug
+.jc-arrow-hug-left.jc-arrow-super-hug
 {
     left: 15px;
     right: auto;
 }
 /* Arrow - Get really close to the right because the button is small  */
-.jc-arrow.jc-arrow-hug-right.jc-arrow-super-hug
+.jc-arrow-hug-right.jc-arrow-super-hug
 {
     right: 1px;
     left: auto;
 }
 /* Arrow - Get really close to the left because the button is small - need to adjust for border radius */
-.jc-arrow.jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
-.jc-arrow.jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
+.jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
 {
     top: -27px;
 }
 /* Arrow - Get really close to the left because the button is small - need to adjust for border radius */
-.jc-arrow.jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
-.jc-arrow.jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
+.jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
 {
     top: auto;
     bottom: -28px;
+}
+
+/* Black theme */
+.jc-black-theme .jc-button
+{
+    text-align: center;
+}
+
+.jc-black-theme .jc-button,
+.jc-black-theme .jc-button:link,
+.jc-black-theme .jc-button:hover,
+.jc-black-theme .jc-button:active,
+.jc-black-theme .jc-button:focus,
+.jc-black-theme .jc-button:visited
+{
+    color: #dadada;
+    padding: 5px 10px;
+    margin: 0px 5px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 5px;
+}
+
+.jc-black-theme .jc-button-highlight,
+.jc-black-theme .jc-button-highlight:link,
+.jc-black-theme .jc-button-highlight:hover,
+.jc-black-theme .jc-button-highlight:active,
+.jc-black-theme .jc-button-highlight:focus,
+.jc-black-theme .jc-button-highlight:visited
+{
+    border: 1px solid #717070;
+}
+
+.jc-black-theme .jc-button:hover
+{
+    background: #333333;
+}
+
+.jc-black-theme .jc-button:hover
+{
+    color: #fff;
+}
+
+.jc-black-theme .jc-button-highlight:hover
+{
+    background: #f3f3f3;
+    color: #333;
+}
+
+/* White theme */
+.jc-white-theme
+{
+    background: #fff;
+    border: 2px solid #e4e4e4;
+}
+.jc-white-theme .jc-question
+{
+    color: #333;
+}
+.jc-white-theme .jc-button,
+.jc-white-theme .jc-button:link,
+.jc-white-theme .jc-button:hover,
+.jc-white-theme .jc-button:active,
+.jc-white-theme .jc-button:focus,
+.jc-white-theme .jc-button:visited
+{
+    color: #828282;
+    padding: 5px 10px;
+    margin: 0px 5px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 5px;
+}
+.jc-white-theme .jc-button-highlight,
+.jc-white-theme .jc-button-highlight:link,
+.jc-white-theme .jc-button-highlight:hover,
+.jc-white-theme .jc-button-highlight:active,
+.jc-white-theme .jc-button-highlight:focus,
+.jc-white-theme .jc-button-highlight:visited
+{
+    background: #f3f3f3;
+}
+.jc-white-theme .jc-button:hover
+{
+    color: #000;
+}
+.jc-white-theme .jc-button-highlight:hover
+{
+    background: #e2e2e2;
+    color: #000;
+}
+.jc-white-theme .jc-arrow-top
+{
+    border-bottom-color: #e4e4e4;
+}
+.jc-white-theme .jc-arrow-bottom
+{
+    border-top-color: #e4e4e4;
+}
+.jc-white-theme .jc-arrow-left
+{
+    border-right-color: #e4e4e4;
+}
+.jc-white-theme .jc-arrow-right
+{
+    border-left-color: #e4e4e4;
+}
+
+/* Bootstrap 4 theme */
+.jc-bootstrap-4-theme .btn
+{
+    margin: 0px 5px;
+}
+
+/* Bootstrap 4 white theme */
+.jc-bootstrap-4-white-theme .btn
+{
+    margin: 0px 5px;
+}
+.jc-bootstrap-4-white-theme .jc-question
+{
+    color: #333;
+}
+.jc-bootstrap-4-white-theme
+{
+    background: #fff;
+    border: 2px solid #e4e4e4;
+}
+.jc-bootstrap-4-white-theme .jc-arrow-top
+{
+    border-bottom-color: #e4e4e4;
+}
+.jc-bootstrap-4-white-theme .jc-arrow-bottom
+{
+    border-top-color: #e4e4e4;
+}
+.jc-bootstrap-4-white-theme .jc-arrow-left
+{
+    border-right-color: #e4e4e4;
+}
+.jc-bootstrap-4-white-theme .jc-arrow-right
+{
+    border-left-color: #e4e4e4;
 }

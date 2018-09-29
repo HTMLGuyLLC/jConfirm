@@ -81,6 +81,8 @@ $(function(){
         class: '',
         //boolean: if true, the deny button will be shown
         show_deny_btn: true,
+        //string ('black', 'white', 'bootstrap-4', 'bootstrap-4-white')
+        theme: 'black',
   }).on('confirm', function(e){
      var btn = $(this);
      //triggered on confirm
@@ -130,6 +132,15 @@ $('[data-toggle="confirm"]').jConfirm().on('confirm', function(e){
 
 Examples
 ======
+
+Bootstrap theme:
+```javascript
+$(function(){
+  $('[data-toggle="confirm"]').jConfirm({
+    theme: 'bootstrap-4'
+  });
+});
+```
 
 Preferred positioning:
 ```javascript
@@ -185,12 +196,12 @@ $('.social-share').jConfirm({
         {
             text:'Facebook',
             event:'facebook-share',
-            class:'facebook-btn jc-button-bordered'
+            class:'facebook-btn jc-button-highlight'
         },
         {
             text:'Twitter',
             event:'twitter-share',
-            class:'twitter-btn jc-button-bordered'
+            class:'twitter-btn jc-button-highlight'
         }
     ]
 }).on('facebook-share', function(e){

@@ -26,6 +26,9 @@
         //get list of options
         options = $.extend({}, $.jConfirm.defaults, options, $(this).data());
 
+        //add theme class
+        options.class += ' jc-'+options.theme+'-theme';
+
         //create tooltip html
         let html = "<div class='jc-tooltip "+options.class+"' role='tooltip'>";
             html += "<div class='jc-arrow'></div>";
@@ -39,18 +42,18 @@
         {
             options.btns = [
                 {
-                    text:options.confirm_text,
-                    class:'jc-confirm jc-button-bordered',
-                    event:'confirm'
+                    text: options.confirm_text,
+                    class: options.theme.indexOf('bootstrap') > -1 ? 'btn btn-success jc-confirm' : 'jc-confirm jc-button-highlight',
+                    event: 'confirm'
                 }
             ];
             //if include deny button
             if( options.show_deny_btn )
             {
                 options.btns.push({
-                    text:options.deny_text,
-                    class:'jc-deny',
-                    event:'deny'
+                    text: options.deny_text,
+                    class: options.theme.indexOf('bootstrap') > -1 ? 'btn btn-secondary jc-deny' : 'jc-deny',
+                    event: 'deny'
                 });
             }
         }
@@ -94,7 +97,7 @@
             //initialize the plugin on this element
             initialize: function(){
                 //attach on click handler to show jConfirm
-                helper.dom_wrapped.on('touchstart mousedown', helper.onClickHandler);
+                helper.dom_wrapped.on('click', helper.onClickHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -425,6 +428,7 @@
         position: 'auto',
         class: '',
         show_deny_btn: true,
+        theme: 'black',
     }
 
 })(jQuery);
