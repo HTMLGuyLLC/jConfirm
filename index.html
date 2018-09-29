@@ -61,7 +61,7 @@
         <a href="#" data-toggle="confirm" class="btn btn-success"><i class="fa fa-save"></i></a>
         <a href="#" data-toggle="confirm" class="btn btn-secondary" data-question="Are you ready to send your message?" data-confirm_text="Yes, send now" data-deny_text="No, cancel"><i class="fa fa-envelope"></i></a>
         <a href="#" class="btn btn-primary social-share" data-url-to-share="https://htmlguy.com"><i class="fa fa-share-square-o"></i></a>
-        <a href="#" data-toggle="confirm" class="btn btn-info" data-question=""  data-show_deny_btn=false data-confirm_text="Bookmark for Later"><i class="fa fa-bookmark"></i></a>
+        <a href="#" class="btn btn-info bookmark-page"><i class="fa fa-bookmark"></i></a>
     </div>
 
 
@@ -82,6 +82,17 @@
     <!-- Demos -->
     <script>
         $(function(){
+            $('.bookmark-page').jConfirm({
+                question: '',
+                btns: [
+                    {
+                        text:'Bookmark for Later',
+                        action: 'confirm'
+                    }
+                ]
+            }).on('confirm', function(){
+                console.log('bookmarked');
+            });
             $('.social-share').jConfirm({
                 question: 'Share to your favorite social media sites!',
                 btns: [
