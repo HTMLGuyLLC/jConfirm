@@ -74,6 +74,7 @@
     line-height: 1.5em;
     text-decoration: none;
     font-weight: 800;
+    border-radius: 5px;
 }
 
 .jc-tooltip .jc-button.jc-button-bordered,
@@ -84,7 +85,11 @@
 .jc-tooltip .jc-button.jc-button-bordered:visited
 {
     border: 1px solid #717070;
-    border-radius: 5px;
+}
+
+.jc-tooltip .jc-button:hover
+{
+    background: #333333;
 }
 
 .jc-tooltip .jc-button.jc-button-bordered:hover
