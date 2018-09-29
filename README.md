@@ -96,10 +96,11 @@ $(function(){
   
   //gets the currently displayed tooltip (if any)
   var current_tooltip = $.jConfirm.current;
-  //hides the current tooltip (remember to make sure there is one first)
-  current_tooltip.hide();
   //gets the button that was clicked for the current tooltip
   current_tooltip.dom;
+  //hides the current tooltip (remember to make sure there is one first)
+  //returns the original dom element
+  current_tooltip.hide();
 });
 ```
 

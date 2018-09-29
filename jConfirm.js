@@ -27,7 +27,7 @@
         options = $.extend({}, $.jConfirm.defaults, options, $(this).data());
 
         //create tooltip html
-        var html = "<div class='jc-tooltip "+options.class+"' role='tooltip'>";
+        let html = "<div class='jc-tooltip "+options.class+"' role='tooltip'>";
             html += "<div class='jc-arrow'></div>";
             if( options.question && options.question.length > 0 ) {
                 html += "<div class='jc-question'>"+options.question+"</div>";
@@ -65,13 +65,10 @@
             html += "</div>";
             html += "</div>";
 
-        var helper = {
+        let helper = {
             dom: this,
             dom_wrapped: $(this),
             position_debug: options.position_debug,
-            question: options.question,
-            confirm_text: options.confirm_text,
-            deny_text: options.deny_text,
             follow_href: options.follow_href,
             hide_on_click: options.hide_on_click,
             class: options.class,
@@ -81,7 +78,7 @@
             //disable existing options/handlers
             destroy: function(){
                 //only if it's actually tied to this element
-                var existing = helper.dom_wrapped.data(helper.dataAttr);
+                const existing = helper.dom_wrapped.data(helper.dataAttr);
                 if( typeof existing !== 'undefined' && existing !== null ) {
 
                     //if currently shown, hide it
@@ -150,11 +147,14 @@
                     $(document).on('touchstart mousedown', helper.onClickOutside);
                 }
                 //give the tooltip an id so we can set accessibility props
-                var id = 'jconfirm'+Date.now();
+                const id = 'jconfirm'+Date.now();
                 helper.tooltip.attr('id', id);
                 helper.dom.attr('aria-describedby', id);
-                //set as current one
-                $.jConfirm.current = helper;
+                //set as current one and expose dom and hide method
+                $.jConfirm.current = {
+                    dom: helper.dom,
+                    hide: helper.hide
+                };
                 //trigger event on show and pass the tooltip
                 helper.dom.trigger('jc-show', {
                     'tooltip':helper.tooltip
@@ -180,6 +180,7 @@
                 $.jConfirm.current = null;
                 //trigger event on show and pass the tooltip
                 helper.dom.trigger('jc-hide');
+                return helper.dom;
             },
             //on body resized
             onResize: function(){
@@ -189,7 +190,7 @@
             },
             //on click outside of the tooltip
             onClickOutside: function(e){
-              var target = $(e.target);
+              const target = $(e.target);
               if( !target.hasClass('jc-tooltip') && !target.parents('.jc-tooltip:first').length )
               {
                   helper.hide();
@@ -200,7 +201,7 @@
                 //on click of button, trigger event
                 helper.tooltip.find('.jc-button').on('click', function(e){
                     e.preventDefault();
-                    var btn = $(this);
+                    const btn = $(this);
                     //trigger event
                     helper.dom_wrapped.trigger(btn.data('event'));
                     //hide helper
@@ -219,10 +220,10 @@
                 helper.positionDebug('-- Start positioning --');
 
                 //cache reference to arrow
-                var arrow = helper.tooltip.find('.jc-arrow');
+                let arrow = helper.tooltip.find('.jc-arrow');
 
                 //first try to fit it with the preferred position
-                var [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.calculateSafePosition(helper.position);
+                let [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top] = helper.calculateSafePosition(helper.position);
 
                 //if couldn't fit, add class tight-fit and run again
                 if( typeof left === 'undefined' )
@@ -277,43 +278,43 @@
             calculateSafePosition: function(position)
             {
                 //cache reference to arrow
-                var arrow = helper.tooltip.find('.jc-arrow');
+                let arrow = helper.tooltip.find('.jc-arrow');
 
                 //get position + size of clicked element
-                var elem_position = helper.dom_wrapped.position();
-                var elem_height = helper.dom_wrapped.outerHeight();
-                var elem_width = helper.dom_wrapped.outerWidth();
+                let elem_position = helper.dom_wrapped.position();
+                let elem_height = helper.dom_wrapped.outerHeight();
+                let elem_width = helper.dom_wrapped.outerWidth();
 
                 //we need to take margins into consideration with positioning
                 //Tried outerHeight(true) and outerWidth(true) and it didn't work correctly
-                var elem_marg_left = parseInt(helper.dom_wrapped.css('marginLeft').replace('px', ''));
-                var elem_marg_top = parseInt(helper.dom_wrapped.css('marginTop').replace('px', ''));
+                let elem_marg_left = parseInt(helper.dom_wrapped.css('marginLeft').replace('px', ''));
+                let elem_marg_top = parseInt(helper.dom_wrapped.css('marginTop').replace('px', ''));
                 elem_position.left += elem_marg_left;
                 elem_position.top += elem_marg_top;
 
                 //get tooltip dimensions
-                var tooltip_width = helper.tooltip.outerWidth();
-                var tooltip_height = helper.tooltip.outerHeight();
+                let tooltip_width = helper.tooltip.outerWidth();
+                let tooltip_height = helper.tooltip.outerHeight();
 
                 //get window dimensions
-                var window_width = document.querySelector('body').offsetWidth;
-                var window_height = document.querySelector('body').offsetHeight;
+                let window_width = document.querySelector('body').offsetWidth;
+                let window_height = document.querySelector('body').offsetHeight;
 
                 //get arrow size so we can pad
-                var arrow_height = arrow.is(":visible") ? arrow.outerHeight() : 0;
-                var arrow_width = arrow.is(":visible") ? arrow.outerWidth() : 0;
+                let arrow_height = arrow.is(":visible") ? arrow.outerHeight() : 0;
+                let arrow_width = arrow.is(":visible") ? arrow.outerWidth() : 0;
 
                 //see where it fits in relation to the clicked element
-                var fits_below = (window_height - (tooltip_height+elem_height+elem_position.top)) > 5;
-                var fits_below_half = (window_height - (elem_width/2) - elem_position.top - (tooltip_height/2)) > 5;
-                var fits_above = (elem_position.top - tooltip_height) > 5;
-                var fits_above_half = (elem_position.top - (elem_width/2) - (tooltip_height/2)) > 5;
-                var fits_right = (window_width - (tooltip_width+elem_width+elem_position.left)) > 5;
-                var fits_right_half = (window_width - elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
-                var fits_right_full = (window_width - elem_position.left - tooltip_width) > 5;
-                var fits_left = (elem_position.left - tooltip_width) > 5;
-                var fits_left_half = (elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
-                var fits_left_full = (elem_position.left - tooltip_width) > 5;
+                let fits_below = (window_height - (tooltip_height+elem_height+elem_position.top)) > 5;
+                let fits_below_half = (window_height - (elem_width/2) - elem_position.top - (tooltip_height/2)) > 5;
+                let fits_above = (elem_position.top - tooltip_height) > 5;
+                let fits_above_half = (elem_position.top - (elem_width/2) - (tooltip_height/2)) > 5;
+                let fits_right = (window_width - (tooltip_width+elem_width+elem_position.left)) > 5;
+                let fits_right_half = (window_width - elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
+                let fits_right_full = (window_width - elem_position.left - tooltip_width) > 5;
+                let fits_left = (elem_position.left - tooltip_width) > 5;
+                let fits_left_half = (elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
+                let fits_left_full = (elem_position.left - tooltip_width) > 5;
 
                 //in debug mode, display all details
                 helper.positionDebug('Clicked element position: left:'+elem_position.left+' top:'+elem_position.top);
@@ -334,7 +335,7 @@
                 if(fits_left_full){ helper.positionDebug('Fits left full (starting where element starts): '+fits_left_full); }
 
                 //vars we need for positioning
-                var arrow_dir, left, top;
+                let arrow_dir, left, top;
 
                 if( (position === 'auto' || position === 'bottom') && fits_below && fits_left_half && fits_right_half )
                 {
