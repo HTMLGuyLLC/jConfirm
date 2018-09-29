@@ -97,7 +97,7 @@
             //initialize the plugin on this element
             initialize: function(){
                 //attach on click handler to show jConfirm
-                helper.dom_wrapped.on('click touch', helper.onClickHandler);
+                helper.dom_wrapped.on('touchstart mousedown', helper.onClickHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -143,7 +143,11 @@
                 $(window).on('resize', helper.onResize);
                 //add on click to body to hide
                 if( helper.hide_on_click ){
-                    $(document).on('click touc', helper.onClickOutside);
+                    //using mousedown and touchstart means it will be prioritized ahead
+                    //of any existing click handlers on an element and close the tooltip
+                    //for many reasons people bind to click and preventDefault which would
+                    //stop this from being called
+                    $(document).on('touchstart mousedown', helper.onClickOutside);
                 }
                 //give the tooltip an id so we can set accessibility props
                 var id = 'jconfirm'+Date.now();
