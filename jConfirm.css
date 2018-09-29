@@ -292,3 +292,18 @@
 {
     border-left-color: #e4e4e4;
 }
+.jc-white-theme .jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-white-theme .jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug,
+.jc-bootstrap-4-white-theme .jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-bootstrap-4-white-theme .jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    top: -30px;
+}
+
+.jc-white-theme .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-white-theme .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug,
+.jc-bootstrap-4-white-theme .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-bootstrap-4-white-theme .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    bottom: -30px;
+}

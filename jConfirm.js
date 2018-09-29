@@ -84,11 +84,14 @@
                 const existing = helper.dom_wrapped.data(helper.dataAttr);
                 if( typeof existing !== 'undefined' && existing !== null ) {
 
+                    //disable handler
+                    existing.dom_wrapped.off('touchstart mousedown', existing.onClickHandler);
+
+                    //attach resize handler to reposition tooltip
+                    $(window).off('resize', existing.onResize);
+
                     //if currently shown, hide it
                     existing.isVisible() && existing.hide();
-
-                    //disable on-click handler
-                    existing.dom_wrapped.off('click', existing.onClickHandler);
 
                     //detach from dom
                     existing.dom_wrapped.data(existing.dataAttr, null);
@@ -96,8 +99,10 @@
             },
             //initialize the plugin on this element
             initialize: function(){
-                //attach on click handler to show jConfirm
-                helper.dom_wrapped.on('click', helper.onClickHandler);
+                //attach on handler to show tooltip
+                //use touchstart and mousedown just like if you click outside the tooltip to close it
+                //this way it blocks the hide if you click the button a second time to close the tooltip
+                helper.dom_wrapped.on('touchstart mousedown', helper.onClickHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -173,7 +178,7 @@
                 $(window).off('resize', helper.onResize);
                 //remove body on click outside
                 if( helper.hide_on_click ) {
-                    $(document).off('click touch', helper.onClickOutside);
+                    $(document).off('touchstart mousedown', helper.onClickOutside);
                 }
                 //remove accessbility props
                 helper.dom.attr('aria-describedby', null);
