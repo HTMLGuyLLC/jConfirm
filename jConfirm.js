@@ -1,8 +1,8 @@
-
 /*
 	jConfirm
 	https://github.com/HTMLGuyLLC/jConfirm
 	Made with love by HTMLGuy, LLC
+	https://htmlguy.com
 	MIT Licensed
 */
 ;(function($) {
