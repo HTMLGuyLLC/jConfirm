@@ -1,8 +1,8 @@
 jConfirm
 ======
-by HTMLGuy, LLC
+by HTMLGuy, LLC (https://htmlguy.com)
 
-![logo](https://htmlguyllc.github.io/jConfirm/example.png)
+![example jconfirm](https://htmlguyllc.github.io/jConfirm/example.png)
 
 Demos
 =======
