@@ -19,7 +19,7 @@ Clone this repo to your website's public folder
 
 OR
 
-Use NPM:
+Available on NPM (https://www.npmjs.com/package/jconfirm):
 ```html
 npm install jconfirm
 ```
