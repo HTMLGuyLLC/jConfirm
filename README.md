@@ -1,4 +1,4 @@
-jConfirm v3
+jConfirm
 ======
 by HTMLGuy, LLC
 
