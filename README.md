@@ -160,8 +160,7 @@ $(function(){
 Follow link on confirm:
 ```html
 <a href="https://htmlguy.com" 
-    class="btn btn-secondary outside-link" 
-    data-follow_href=true>
+    class="btn btn-secondary outside-link">
     Send
 </a>
 ```
@@ -169,7 +168,8 @@ Follow link on confirm:
 $('.outside-link').jConfirm({
     question:'You are about to visit an external site, are you sure you want to leave?',
     confirm_text: 'Yes, let\'s go!',
-    deny_text:' No way!'
+    deny_text:' No way!',
+    follow_href: true,
 });
 ```
 
