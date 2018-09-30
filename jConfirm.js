@@ -29,55 +29,63 @@
         //add theme class
         options.class += ' jc-'+options.theme+'-theme';
 
-        //create tooltip html
-        let html = "<div class='jc-tooltip "+options.class+"' role='tooltip'>";
-            html += "<div class='jc-arrow'></div>";
-            if( options.question && options.question.length > 0 ) {
-                html += "<div class='jc-question'>"+options.question+"</div>";
-            }
-            html += "<div class='jc-buttons-wrap'>";
-
-        //if no buttons were provided (default), set confirm and deny
-        if( !options.btns )
-        {
-            options.btns = [
-                {
-                    text: options.confirm_text,
-                    class: options.theme.indexOf('bootstrap') > -1 ? 'btn btn-success jc-confirm' : 'jc-confirm jc-button-highlight',
-                    event: 'confirm'
-                }
-            ];
-            //if include deny button
-            if( options.show_deny_btn )
-            {
-                options.btns.push({
-                    text: options.deny_text,
-                    class: options.theme.indexOf('bootstrap') > -1 ? 'btn btn-secondary jc-deny' : 'jc-deny',
-                    event: 'deny'
-                });
-            }
-        }
-
-        //loop through buttons and add to html
-        $.each(options.btns, function(key,btn){
-            html += "<div class='jc-button-wrap'>";
-            html += "<a href='#' data-event='"+btn.event+"' class='jc-button "+btn.class+"'>"+btn.text+"</a>";
-            html += "</div>";
-        });
-
-            html += "</div>";
-            html += "</div>";
-
         let helper = {
             dom: this,
             dom_wrapped: $(this),
             position_debug: options.position_debug,
             follow_href: options.follow_href,
             hide_on_click: options.hide_on_click,
+            question: options.question,
+            theme: options.theme,
             class: options.class,
+            btns: options.btns,
+            confirm_text: options.confirm_text,
+            deny_text: options.deny_text,
+            show_deny_btn: options.show_deny_btn,
             position: options.position,
-            tooltipHTML: html,
             dataAttr: 'jConfirm',
+            //create tooltip html
+            createTooltipHTML: function(){
+                let html = "<div class='jc-tooltip "+helper.class+"' role='tooltip'>";
+                html += "<div class='jc-arrow'></div>";
+                if( helper.question && helper.question.length > 0 ) {
+                    html += "<div class='jc-question'>"+helper.question+"</div>";
+                }
+                html += "<div class='jc-buttons-wrap'>";
+
+                //if no buttons were provided (default), set confirm and deny
+                if( !helper.btns )
+                {
+                    helper.btns = [
+                        {
+                            text: helper.confirm_text,
+                            class: helper.theme.indexOf('bootstrap') > -1 ? 'btn btn-success jc-confirm' : 'jc-confirm jc-button-highlight',
+                            event: 'confirm'
+                        }
+                    ];
+                    //if include deny button
+                    if( helper.show_deny_btn )
+                    {
+                        helper.btns.push({
+                            text: helper.deny_text,
+                            class: helper.theme.indexOf('bootstrap') > -1 ? 'btn btn-secondary jc-deny' : 'jc-deny',
+                            event: 'deny'
+                        });
+                    }
+                }
+
+                //loop through buttons and add to html
+                $.each(helper.btns, function(key,btn){
+                    html += "<div class='jc-button-wrap'>";
+                    html += "<a href='#' data-event='"+btn.event+"' class='jc-button "+btn.class+"'>"+btn.text+"</a>";
+                    html += "</div>";
+                });
+
+                html += "</div>";
+                html += "</div>";
+
+                return html;
+            },
             //disable existing options/handlers
             destroy: function(){
                 //only if it's actually tied to this element
@@ -145,7 +153,7 @@
                     $.jConfirm.current.hide();
                 }
                 //add the tooltip to the dom
-                $('body').append(helper.tooltipHTML);
+                $('body').append(helper.createTooltipHTML());
                 //cache tooltip
                 helper.tooltip = $('.jc-tooltip');
                 //attach handlers
