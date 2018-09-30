@@ -201,7 +201,7 @@
                 //remove accessbility props
                 helper.dom.attr('aria-describedby', null);
                 //remove from dom
-                helper.dom_wrapped.data(helper.dataAttr).tooltip.remove();
+                helper.tooltip.remove();
                 //remove current
                 $.jConfirm.current = null;
                 //trigger hide event
