@@ -1,8 +1,8 @@
-jConfirm v3
+jConfirm
 ======
-by HTMLGuy, LLC
+by HTMLGuy, LLC (https://htmlguy.com)
 
-![logo](https://htmlguyllc.github.io/jConfirm/example.png)
+![example jconfirm](https://htmlguyllc.github.io/jConfirm/example.png)
 
 Demos
 =======
@@ -19,7 +19,7 @@ Clone this repo to your website's public folder
 
 OR
 
-Use NPM (WARNING: NPM doesn't have the package yet. I have to wait 24 hours! Download the files manually till then!):
+Available on NPM (https://www.npmjs.com/package/jconfirm):
 ```html
 npm install jconfirm
 ```
