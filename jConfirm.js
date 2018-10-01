@@ -36,6 +36,7 @@
             dom_wrapped: $(this),
             position_debug: options.position_debug,
             follow_href: options.follow_href,
+            open_new_tab: options.open_new_tab,
             hide_on_click: options.hide_on_click,
             question: options.question,
             theme: options.theme,
@@ -237,9 +238,19 @@
                     //hide helper
                     helper.hide();
                     //follow href
-                    if( helper.follow_href )
+                    if( btn.data('event') === 'confirm' && helper.follow_href )
                     {
-                        window.location.href = helper.dom_wrapped.prop('href');
+                        if( helper.open_new_tab )
+                        {
+                            window.open(
+                                helper.dom_wrapped.prop('href'),
+                                '_blank'
+                            );
+                        }
+                        else
+                        {
+                            window.location.href = helper.dom_wrapped.prop('href');
+                        }
                     }
                     return false;
                 });
@@ -451,6 +462,7 @@
         confirm_text: 'Yes',
         deny_text: 'No',
         follow_href: false,
+        open_new_tab: false,
         hide_on_click: true,
         position: 'auto',
         class: '',

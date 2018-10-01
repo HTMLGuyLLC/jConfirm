@@ -1,3 +1,4 @@
+<!-- This page is admittedly lazy/crappy. Don't think the plugin shares it's quality, because it doesn't -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/darcula.min.css">
     <link rel="stylesheet" href="jConfirm.css">
     <style>
         body,html
@@ -35,8 +37,8 @@
 <body class="body text-center">
 
     <!-- Page title -->
-    <div style="margin-top: 10%;">
-        <h1>jConfirm - Confirmation Tooltip Demos</h1>
+    <div style="margin-top: 50px;">
+        <h1>jConfirm - Confirmation Tooltip</h1>
         <a href="https://github.com/HTMLGuyLLC/jConfirm" class="btn btn-success">Docs and Code on Github</a>
         <a href="https://htmlguy.com" target="_blank" class="btn btn-secondary">Created by HTMLGuy</a>
         <br><br>
@@ -54,11 +56,11 @@
         <a href="#" data-toggle="confirm" class="btn btn-danger" data-question="This action cannot be undone" data-confirm_text="Ok" data-deny_text="Cancel"><i class="fa fa-trash-o"></i></a>
         <a href="#" data-toggle="confirm" class="btn btn-success"><i class="fa fa-save"></i></a>
         <a href="#" data-toggle="confirm" class="btn btn-secondary" data-question="Are you ready to send your message?" data-confirm_text="Yes, send now" data-deny_text="No, cancel"><i class="fa fa-envelope"></i></a>
-        <a href="#" class="btn btn-primary social-share" data-url-to-share="https://htmlguy.com"><i class="fa fa-share-square-o"></i></a>
-        <a href="#" class="btn btn-info bookmark-page"><i class="fa fa-bookmark"></i></a>
+        <a href="#" class="btn btn-primary social-share-dummy" data-url-to-share="https://htmlguy.com"><i class="fa fa-share-square-o"></i></a>
+        <a href="#" class="btn btn-info bookmark-page-dummy"><i class="fa fa-bookmark"></i></a>
     </div>
 
-    <div style="margin-top: 50px; margin-bottom: 100px" class="text-center">
+    <div style="margin-top: 50px" class="text-center">
         <table class="table" style="max-width: 500px; display: inline-block;">
             <tr>
                 <th colspan="6" style="text-align: center;">Preferred Placement</th>
@@ -146,6 +148,210 @@
         </table>
     </div>
 
+    <div style="text-align: center;">
+        <br><br><hr>
+        <h2>Documentation</h2>
+        <hr><br>
+
+        <h4>All options and events with defaults:</h4>
+        <div>
+        <pre style="display:inline-block;width:800px;max-width:100%; text-align:left;"><code class="javascript">
+    $(function(){
+        $('[data-toggle="confirm"]').jConfirm({
+            //false|array: if provided, this will override the default confirm/deny buttons (see below for an example)
+            btns: false,
+            //string: question displayed to the user
+            question: 'Are you sure?',
+            //string: confirm button text
+            confirm_text: 'Yes',
+            //string: deny button text
+            deny_text: 'No',
+            //boolean: if true, when the confirm button is clicked the user will be redirected to the button's href location
+            follow_href: true,
+            //boolean: if true and follow_href is true, the href will be opened in a new window
+            open_new_tab: false,
+            //boolean: if true, the tooltip will be hidden if you click outside of it
+            hide_on_click: true,
+            //string ('auto','top','bottom','left','right'): preferred location of the tooltip (defaults to auto if no space)
+            position: 'auto',
+            //boolean: if true, the deny button will be shown
+            show_deny_btn: true,
+            //string ('black', 'white', 'bootstrap-4', 'bootstrap-4-white')
+            theme: 'black',
+            //string ('tiny', 'small', 'medium', 'large')
+            size: 'small',
+            //string: class(es) to add to the tooltip
+            'class': ''
+        }).on('confirm', function(e){
+            var btn = $(this);
+            //do something on confirm
+        }).on('deny', function(e){
+            var btn = $(this);
+            //do something on deny
+        }).on('jc-show', function(e, tooltip){
+            //do something when tooltip is shown
+            //tooltip dom element is passed as the second parameter
+        }).on('jc-hide', function(e){
+            //do something when tooltip is hidden
+        });
+
+        //gets the currently displayed tooltip (if any)
+        var current_tooltip = $.jConfirm.current;
+        //gets the button that was clicked for the current tooltip
+        current_tooltip.dom;
+        //hides the current tooltip (remember to make sure there is one first)
+        //returns the original dom element
+        //you can pass false to disable triggering the hide event
+        current_tooltip.hide(false);
+    });
+        </code></pre>
+        </div>
+    </div>
+
+    <div style="margin-top: 10px; margin-bottom: 100px; text-align: center;">
+        <div style="max-width: 800px;display:inline-block; ">
+            <h4>All options can be set globally:</h4>
+            <div>
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="javascript">
+    $.jConfirm.defaults.question = 'Are you sure?';
+    $.jConfirm.defaults.confirm_text = 'Yes';
+    $.jConfirm.defaults.deny_text = 'No';
+    $.jConfirm.defaults.theme = 'black';
+            </code></pre>
+            </div>
+
+            <h4>All options can be set with data attributes:</h4>
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="html">
+    &lt;a href='#'
+       data-toggle="confirm"
+       data-question="Are you sure?"
+       data-confirm_text="Yes"
+       data-deny_text="No"
+       data-id="1">Delete it!&lt;/a>
+            </code></pre>
+            <div>
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="javascript">
+    $('[data-toggle="confirm"]').jConfirm().on('confirm', function(e){
+       var btn = $(this),
+            id = btn.data('id');
+       //do something
+    });
+            </code></pre>
+            </div>
+            <a href="https://github.com/HTMLGuyLLC/jConfirm" class="btn btn-success">Learn more on Github</a>
+
+            <br><br><hr>
+            <h2>Examples</h2>
+            <hr><br>
+
+            <h4>Delete Button:</h4>
+            <div>
+                <a href="#"
+                   class="btn btn-danger delete-record"
+                   data-record_id="1">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </div><br>
+
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="html">
+    &lt;a href="#"
+       class="btn btn-danger delete-record"
+       data-record_id="1">
+        &lt;i class="fa fa-trash-o">&lt;/i>
+    &lt;/a>
+            </code></pre>
+            <div>
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="javascript">
+    $('.delete-record').jConfirm().on('confirm', function(e){
+        var btn = $(this),
+            record_id = btn.data('record_id');
+        alert('Deleting record: '+record_id);
+    });
+            </code></pre>
+            </div>
+
+            <br>
+            <h4>External Link Warning:</h4>
+            <div>
+                <a href="https://htmlguy.com"
+                   data-open_new_tab=true
+                   class="btn btn-secondary outside-link">
+                    Visit HTMLGuy.com
+                </a>
+            </div><br>
+
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="html">
+    &lt;a href="https://htmlguy.com"
+          data-open_new_tab=true
+          class="btn btn-secondary outside-link">
+        Visit HTMLGuy.com
+    &lt;/a>
+            </code></pre>
+            <div>
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="javascript">
+    $('.outside-link').jConfirm({
+        question:'You are about to visit an external site, are you sure you want to leave?',
+        confirm_text: 'Yes, let\'s go!',
+        deny_text:' No way!',
+        follow_href: true,
+    });
+            </code></pre>
+            </div>
+
+            <br>
+            <h4>Social Media Sharing:</h4>
+            <div>
+                <a href="#" class="btn btn-primary social-share" data-url-to-share="https://htmlguyllc.github.io/jConfirm/">
+                    <i class="fa fa-share-square-o"></i>
+                </a>
+            </div><br>
+
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="html">
+    &lt;a href="#"
+          class="btn btn-primary social-share"
+          data-url-to-share="https://htmlguyllc.github.io/jConfirm/">
+        &lt;i class="fa fa-share-square-o">&lt;/i>
+    &lt;/a>
+            </code></pre>
+            <div>
+            <pre style="text-align:left;width:800px;max-width:100%;"><code class="javascript">
+    $('.social-share').jConfirm({
+        //open in new tab
+        open_new_tab: true,
+        question: 'Share to your favorite social media sites!',
+        btns: [
+            {
+                text:'&lt;i class="fa fa-facebook">&lt;/i> Facebook',
+                event:'facebook-share',
+                class:'facebook-btn'
+            },
+            {
+                text:'&lt;i class="fa fa-twitter">&lt;/i> Twitter',
+                event:'twitter-share',
+                class:'twitter-btn'
+            }
+        ]
+    }).on('facebook-share', function(e){
+        var btn = $(this);
+        var url = 'http://www.facebook.com/sharer.php?u='+btn.data('url-to-share');
+        window.open(
+          url,
+          '_blank'
+        );
+    }).on('twitter-share', function(e){
+        var btn = $(this);
+        var url = 'http://twitter.com/share?text=This%20is%20the%20best!&url='+btn.data('url-to-share');
+        window.open(
+          url,
+          '_blank'
+        );
+    });
+            </code></pre>
+            </div>
+            <a href="https://github.com/HTMLGuyLLC/jConfirm" class="btn btn-success">Learn more on Github</a>
+        </div>
+    </div>
+
 
     <!-- Buttons in each corner -->
     <!--<a href="#" data-toggle="confirm" style="position: fixed; top: 50%; left: 0px;" class="btn btn-secondary"><i class="fa fa-caret-right"></i></a>-->
@@ -159,12 +365,27 @@
 
     <!-- jQuery and script -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="jConfirm.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
     <!-- Demos -->
     <script>
         $(function(){
-            $('.bookmark-page').jConfirm({
+            $('.delete-record').jConfirm().on('confirm', function(e){
+                var btn = $(this),
+                    record_id = btn.data('record_id');
+                alert('Deleting record: '+record_id);
+            });
+
+            $('.outside-link').jConfirm({
+                question:'You are about to visit an external site, are you sure you want to leave?',
+                confirm_text: 'Yes, let\'s go!',
+                deny_text:' No way!',
+                follow_href: true,
+            });
+
+            $('.bookmark-page-dummy').jConfirm({
                 question: '',
                 btns: [
                     {
@@ -175,7 +396,8 @@
             }).on('confirm', function(){
                 console.log('bookmarked');
             });
-            $('.social-share').jConfirm({
+
+            $('.social-share-dummy').jConfirm({
                 question: 'Share to your favorite social media sites!',
                 btns: [
                     {
@@ -197,12 +419,38 @@
                 console.log('Sharing to twitter: '+btn.data('url-to-share'));
             });
 
-            $('[data-toggle="confirm"]').jConfirm({
-                question:'Are you sure?',
-                confirm_text: 'Yes',
-                deny_text: 'No',
-                class: 'sm'
-            }).on('confirm', function(e){
+            $('.social-share').jConfirm({
+                open_new_tab: true,
+                question: 'Share to your favorite social media sites!',
+                btns: [
+                    {
+                        text:'<i class="fa fa-facebook"></i> Facebook',
+                        event:'facebook-share',
+                        class:'facebook-btn'
+                    },
+                    {
+                        text:'<i class="fa fa-twitter"></i> Twitter',
+                        event:'twitter-share',
+                        class:'twitter-btn'
+                    }
+                ]
+            }).on('facebook-share', function(e){
+                var btn = $(this);
+                var url = 'http://www.facebook.com/sharer.php?u='+btn.data('url-to-share');
+                window.open(
+                    url,
+                    '_blank'
+                );
+            }).on('twitter-share', function(e){
+                var btn = $(this);
+                var url = 'http://twitter.com/share?text=This%20is%20the%20best!&url='+btn.data('url-to-share');
+                window.open(
+                    url,
+                    '_blank'
+                );
+            });
+
+            $('[data-toggle="confirm"]').jConfirm().on('confirm', function(e){
                 console.log("confirm");
             }).on('deny', function(e){
                 console.log("deny");

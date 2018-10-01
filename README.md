@@ -73,6 +73,8 @@ $(function(){
         deny_text: 'No',
         //boolean: if true, when the confirm button is clicked the user will be redirected to the button's href location
         follow_href: true,
+        //boolean: if true and follow_href is true, the href will be opened in a new window
+        open_new_tab: false,
         //boolean : if true, the tooltip will be hidden if you click outside of it
         hide_on_click: true,
         //string ('auto','top','bottom','left','right'): preferred location of the tooltip (defaults to auto if no space)
@@ -163,7 +165,7 @@ Follow link on confirm:
 ```html
 <a href="https://htmlguy.com" 
     class="btn btn-secondary outside-link">
-    Send
+    HTMLGuy.com
 </a>
 ```
 ```javascript
