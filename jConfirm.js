@@ -28,6 +28,8 @@
 
         //add theme class
         options.class += ' jc-'+options.theme+'-theme';
+        //add size class
+        options.class += ' jc-'+options.size;
 
         let helper = {
             dom: this,
@@ -309,7 +311,7 @@
                 let arrow = helper.tooltip.find('.jc-arrow');
 
                 //get position + size of clicked element
-                let elem_position = helper.dom_wrapped.position();
+                let elem_position = helper.dom_wrapped.offset();
                 let elem_height = helper.dom_wrapped.outerHeight();
                 let elem_width = helper.dom_wrapped.outerWidth();
 
@@ -377,7 +379,7 @@
                     helper.positionDebug('Displaying above, centered');
                     arrow_dir = 'bottom';
                     left = elem_position.left - (tooltip_width/2) + (elem_width/2);
-                    top = elem_position.top - tooltip_height - (elem_height/2) - (arrow_height/2);
+                    top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
                 else if( (position === 'auto' || position === 'left') && fits_left && fits_below_half && fits_above_half )
                 {
@@ -412,14 +414,14 @@
                     helper.positionDebug('Displaying above, to the right');
                     arrow_dir = 'bottom jc-arrow-hug-left';
                     left = elem_position.left;
-                    top = elem_position.top - tooltip_height - (elem_height/2) - (arrow_height/2);
+                    top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
                 else if( (position === 'auto' || position === 'top') && fits_above && fits_left_full )
                 {
                     helper.positionDebug('Displaying above, to the left');
                     arrow_dir = 'bottom jc-arrow-hug-right';
                     left = elem_position.left + elem_width - tooltip_width;
-                    top = elem_position.top - tooltip_height - (elem_height/2) - (arrow_height/2);
+                    top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
 
                 return [arrow_dir, elem_width, tooltip_width, tooltip_height, left, top];
@@ -444,7 +446,7 @@
 
     $.jConfirm.defaults = {
         btns: false,
-        position_debug: false,
+        position_debug: true,
         question: 'Are you sure?',
         confirm_text: 'Yes',
         deny_text: 'No',
@@ -454,6 +456,7 @@
         class: '',
         show_deny_btn: true,
         theme: 'black',
+        size: 'small',
     }
 
 })(jQuery);

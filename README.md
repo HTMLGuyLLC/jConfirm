@@ -83,6 +83,8 @@ $(function(){
         show_deny_btn: true,
         //string ('black', 'white', 'bootstrap-4', 'bootstrap-4-white')
         theme: 'black',
+        //string ('tiny', 'small', 'medium', 'large')
+        size: 'small',
   }).on('confirm', function(e){
      var btn = $(this);
      //triggered on confirm
