@@ -36,7 +36,6 @@
     padding: 10px;
     display: flex;
     flex-direction: row;
-    min-width: 150px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -61,6 +60,14 @@
 .jc-tight-fit .jc-buttons-wrap
 {
     margin-bottom: .3em;
+}
+.jc-tiny.jc-tight-fit
+{
+    padding: 2px 15px;
+}
+.jc-tight-fit .jc-question
+{
+    margin: 0px 0px 5px 0px;
 }
 .jc-tiny.jc-tight-fit .jc-buttons-wrap
 {
