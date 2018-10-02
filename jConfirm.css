@@ -408,16 +408,9 @@
     right: -20px;
     margin-top: -10px;
 }
-.jc-tiny .jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
-.jc-tiny .jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
-{
-    top: -18px;
-}
-.jc-tiny .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
-.jc-tiny .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
-{
-    bottom: -18px;
-}
+/**
+@todo: Rewrite arrows in JS since they are so complicated in CSS
+ */
 .jc-tiny .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
 .jc-tiny .jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug
 {
@@ -427,4 +420,25 @@
 .jc-tiny .jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
 {
     right: 1px;
+}
+.jc-tiny.jc-white-theme .jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-tiny.jc-white-theme .jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug,
+.jc-tiny.jc-bootstrap-4-white-theme .jc-arrow-top.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-tiny.jc-bootstrap-4-white-theme .jc-arrow-top.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    top: -18px;
+}
+.jc-tiny.jc-white-theme .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-tiny.jc-white-theme .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug,
+.jc-tiny.jc-bootstrap-4-white-theme .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-tiny.jc-bootstrap-4-white-theme .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    bottom: -21px;
+}
+.jc-tiny.jc-black-theme .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-tiny.jc-black-theme .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug,
+.jc-tiny.jc-bootstrap-4-theme .jc-arrow-bottom.jc-arrow-hug-left.jc-arrow-super-hug,
+.jc-tiny.jc-bootstrap-4-theme .jc-arrow-bottom.jc-arrow-hug-right.jc-arrow-super-hug
+{
+    bottom: -18px;
 }
