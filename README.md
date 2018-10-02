@@ -13,6 +13,16 @@ What is it?
 =======
 jQuery confirmation tooltip plugin. Easy to use and configure with excellent responsive placement (on the demo page, try resizing your screen!).
 
+Features
+=======
+* Backdrops (black, white, blurred)
+* Themes (black, white, bootstrap 4, bootstrap 4 white)
+* Sizes (tiny, small, medium, large)
+* Responsive (prefers the supplied position, if it doesn't fit, it attempts to make it smaller by stacking the question and buttons, if it doesn't fit, it tries the "auto" setting, if it still doesn't fit, it shows as a modal in the middle of the screen)
+* Customizable buttons and events
+* No-conflict CSS
+* Additional events like tooltip hide/show for extra control
+
 Getting the files
 =======
 Clone this repo to your website's public folder
