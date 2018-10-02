@@ -50,13 +50,6 @@
             dataAttr: 'jConfirm',
             //create tooltip html
             createTooltipHTML: function(){
-                let html = '';
-                html += "<div class='jc-tooltip "+helper.class+"' role='tooltip'>";
-                html += "<div class='jc-arrow'></div>";
-                if( helper.question && helper.question.length > 0 ) {
-                    html += "<div class='jc-question'>"+helper.question+"</div>";
-                }
-                html += "<div class='jc-buttons-wrap'>";
 
                 //if no buttons were provided (default), set confirm and deny
                 if( !helper.btns )
@@ -64,7 +57,7 @@
                     helper.btns = [
                         {
                             text: helper.confirm_text,
-                            class: helper.theme.indexOf('bootstrap') > -1 ? 'btn btn-success jc-confirm' : 'jc-confirm jc-button-highlight',
+                            class: helper.theme.indexOf('bootstrap') > -1 ? 'btn btn-success' : 'jc-button-highlight',
                             event: 'confirm'
                         }
                     ];
@@ -73,28 +66,35 @@
                     {
                         helper.btns.push({
                             text: helper.deny_text,
-                            class: helper.theme.indexOf('bootstrap') > -1 ? 'btn btn-secondary jc-deny' : 'jc-deny',
+                            class: helper.theme.indexOf('bootstrap') > -1 ? 'btn btn-secondary' : '',
                             event: 'deny'
                         });
                     }
                 }
 
+                let html = `<div class='jc-tooltip ${helper.class}' role='tooltip'>
+                                <div class='jc-arrow'></div>`;
+
+                if( helper.question && helper.question.length > 0 ) {
+                    html += "<div class='jc-question'>"+helper.question+"</div>";
+                }
+                html += "<div class='jc-buttons-wrap'>";
+
                 //loop through buttons and add to html
                 $.each(helper.btns, function(key,btn){
-                    html += "<div class='jc-button-wrap'>";
-                    html += "<a href='#' data-event='"+btn.event+"' class='jc-button "+btn.class+"'>"+btn.text+"</a>";
-                    html += "</div>";
+                    html += `<div class='jc-button-wrap'>
+                                <a href='#' data-event='${btn.event}' class='jc-button ${btn.class}'>${btn.text}</a>
+                            </div>`;
                 });
-                //end buttons wrap
-                html += "</div>";
-                //end tooltip
-                html += "</div>";
+
+                //end buttons wrap and tooltip
+                html += "</div></div>";
 
                 return html;
             },
             //creates backdrop html if necessary
             createBackdropHTML: function(){
-               return helper.backdrop ? "<div class='jc-backdrop jc-"+helper.backdrop+"-backdrop'></div>" : false;
+               return helper.backdrop ? `<div class='jc-backdrop jc-${helper.backdrop}-backdrop'></div>` : false;
             },
             //disable existing options/handlers
             destroy: function(){
@@ -327,7 +327,7 @@
                 }
 
                 //position the tooltip
-                helper.positionDebug('Setting position: left:'+left+' top:'+top);
+                helper.positionDebug({'Setting Position':{'Left':left,'Top':top}});
                 helper.tooltip.css('left', left);
                 helper.tooltip.css('top', top);
 
@@ -376,88 +376,83 @@
                 let arrow_width = arrow.is(":visible") ? arrow.outerWidth() : 0;
 
                 //see where it fits in relation to the clicked element
-                let fits_below = (window_height - (tooltip_height+elem_height+elem_position.top)) > 5;
-                let fits_below_half = (window_height - (elem_width/2) - elem_position.top - (tooltip_height/2)) > 5;
-                let fits_above = (elem_position.top - tooltip_height) > 5;
-                let fits_above_half = (elem_position.top - (elem_width/2) - (tooltip_height/2)) > 5;
-                let fits_right = (window_width - (tooltip_width+elem_width+elem_position.left)) > 5;
-                let fits_right_half = (window_width - elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
-                let fits_right_full = (window_width - elem_position.left - tooltip_width) > 5;
-                let fits_left = (elem_position.left - tooltip_width) > 5;
-                let fits_left_half = (elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
-                let fits_left_full = (elem_position.left - tooltip_width) > 5;
+                let fits = {};
+                fits.below = (window_height - (tooltip_height+elem_height+elem_position.top)) > 5;
+                fits.below_half = (window_height - (elem_width/2) - elem_position.top - (tooltip_height/2)) > 5;
+                fits.above = (elem_position.top - tooltip_height) > 5;
+                fits.above_half = (elem_position.top - (elem_width/2) - (tooltip_height/2)) > 5;
+                fits.right = (window_width - (tooltip_width+elem_width+elem_position.left)) > 5;
+                fits.right_half = (window_width - elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
+                fits.right_full = (window_width - elem_position.left - tooltip_width) > 5;
+                fits.left = (elem_position.left - tooltip_width) > 5;
+                fits.left_half = (elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
+                fits.left_full = (elem_position.left - tooltip_width) > 5;
 
                 //in debug mode, display all details
-                helper.positionDebug('Clicked element position: left:'+elem_position.left+' top:'+elem_position.top);
-                helper.positionDebug('Element dimensions: height:'+elem_height+' width:'+elem_width);
-                helper.positionDebug('Tooltip dimensions: height:'+tooltip_height+' width:'+tooltip_width);
-                helper.positionDebug('Window dimensions: height:'+window_height+' width:'+window_width);
-                helper.positionDebug('Arrow dimensions: height:'+arrow_height+' width:'+arrow_width);
-
-                if(fits_below){ helper.positionDebug('Fits below: '+fits_below); }
-                if(fits_below_half){ helper.positionDebug('Fits below half (for vertical centering): '+fits_below_half); }
-                if(fits_above){ helper.positionDebug('Fits above: '+fits_above); }
-                if(fits_above_half){ helper.positionDebug('Fits above half (for vertical centering): '+fits_above_half); }
-                if(fits_right){ helper.positionDebug('Fits right (to the right of the element):'+fits_right); }
-                if(fits_right_half){ helper.positionDebug('Fits right half (for horizontal centering): '+fits_right_half); }
-                if(fits_right_full){ helper.positionDebug('Fits right full (starting where element starts): '+fits_right_full); }
-                if(fits_left){ helper.positionDebug('Fits left (to the left of the element): '+fits_left); }
-                if(fits_left_half){ helper.positionDebug('Fits left half (for horizontal centering): '+fits_left_half); }
-                if(fits_left_full){ helper.positionDebug('Fits left full (starting where element starts): '+fits_left_full); }
+                helper.positionDebug({
+                    'Clicked Element': {'Left': elem_position.left, 'Top': elem_position.top},
+                });
+                helper.positionDebug({
+                   'Element Dimensions':{'Height':elem_height, 'Width':elem_width},
+                   'Tooltip Dimensions':{'Height':tooltip_height, 'Width':tooltip_width},
+                   'Window Dimensions':{'Height':window_height, 'Width':window_width},
+                   'Arrow Dimensions':{'Height':arrow_height, 'Width':arrow_width},
+                });
+                helper.positionDebug(fits);
 
                 //vars we need for positioning
                 let arrow_dir, left, top;
 
-                if( (position === 'auto' || position === 'bottom') && fits_below && fits_left_half && fits_right_half )
+                if( (position === 'auto' || position === 'bottom') && fits.below && fits.left_half && fits.right_half )
                 {
                     helper.positionDebug('Displaying below, centered');
                     arrow_dir = 'top';
                     left = elem_position.left - (tooltip_width/2) + (elem_width/2);
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
-                else if( (position === 'auto' || position === 'top') && fits_above && fits_left_half && fits_right_half )
+                else if( (position === 'auto' || position === 'top') && fits.above && fits.left_half && fits.right_half )
                 {
                     helper.positionDebug('Displaying above, centered');
                     arrow_dir = 'bottom';
                     left = elem_position.left - (tooltip_width/2) + (elem_width/2);
                     top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
-                else if( (position === 'auto' || position === 'left') && fits_left && fits_below_half && fits_above_half )
+                else if( (position === 'auto' || position === 'left') && fits.left && fits.below_half && fits.above_half )
                 {
                     helper.positionDebug('Displaying left, centered');
                     arrow_dir = 'right';
                     left = elem_position.left - tooltip_width - (arrow_width/2);
                     top = elem_position.top + (elem_height/2) - (tooltip_height/2);
                 }
-                else if( (position === 'auto' || position === 'right') && fits_right && fits_below_half && fits_above_half )
+                else if( (position === 'auto' || position === 'right') && fits.right && fits.below_half && fits.above_half )
                 {
                     helper.positionDebug('Displaying right, centered');
                     arrow_dir = 'left';
                     left = elem_position.left + elem_width + (arrow_width/2);
                     top = elem_position.top + (elem_height/2) - (tooltip_height/2);
                 }
-                else if( (position === 'auto' || position === 'bottom') && fits_below && fits_right_full )
+                else if( (position === 'auto' || position === 'bottom') && fits.below && fits.right_full )
                 {
                     helper.positionDebug('Displaying below, to the right');
                     arrow_dir = 'top jc-arrow-hug-left';
                     left = elem_position.left;
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
-                else if( (position === 'auto' || position === 'bottom') && fits_below && fits_left_full )
+                else if( (position === 'auto' || position === 'bottom') && fits.below && fits.left_full )
                 {
                     helper.positionDebug('Displaying below, to the left');
                     arrow_dir = 'top jc-arrow-hug-right';
                     left = elem_position.left + elem_width - tooltip_width;
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
-                else if( (position === 'auto' || position === 'top') && fits_above && fits_right_full )
+                else if( (position === 'auto' || position === 'top') && fits.above && fits.right_full )
                 {
                     helper.positionDebug('Displaying above, to the right');
                     arrow_dir = 'bottom jc-arrow-hug-left';
                     left = elem_position.left;
                     top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
-                else if( (position === 'auto' || position === 'top') && fits_above && fits_left_full )
+                else if( (position === 'auto' || position === 'top') && fits.above && fits.left_full )
                 {
                     helper.positionDebug('Displaying above, to the left');
                     arrow_dir = 'bottom jc-arrow-hug-right';
@@ -469,10 +464,11 @@
             },
             //if position_debug is enabled, let's console.log the details
             positionDebug: function(msg){
-                if( helper.position_debug )
-                {
-                    console.log('Position: '+msg);
+                if( !helper.position_debug ) {
+                    return false;
                 }
+
+                return typeof msg === 'object' ? console.table(msg) : console.log(`Position: ${msg}`);
             }
         };
 
@@ -487,7 +483,7 @@
 
     $.jConfirm.defaults = {
         btns: false,
-        position_debug: true,
+        position_debug: false,
         question: 'Are you sure?',
         confirm_text: 'Yes',
         deny_text: 'No',
