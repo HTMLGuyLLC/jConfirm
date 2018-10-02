@@ -30,13 +30,9 @@ jQuery 3.0+
 
 Setup
 ======
-Include the CSS files from the folder in the head section:
+Include the plugin in your code:
 ```html
-<link rel="stylesheet" href="jConfirm-master/jConfirm.css">
-```
-
-Include the JS file from the folder before the `</body>`:
-```html
+<link rel="stylesheet" href="jConfirm-master/jConfirm.min.css">
 <script src="jConfirm-master/jConfirm.min.js"></script>
 ```
 
