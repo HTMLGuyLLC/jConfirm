@@ -83,6 +83,8 @@ $(function(){
         theme: 'black',
         //string ('tiny', 'small', 'medium', 'large')
         size: 'small',
+        //string|false ('black', 'white', 'blurred')
+        backdrop: false
   }).on('confirm', function(e){
      var btn = $(this);
      //triggered on confirm
