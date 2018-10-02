@@ -41,6 +41,7 @@
             question: options.question,
             theme: options.theme,
             class: options.class,
+            backdrop: options.backdrop,
             btns: options.btns,
             confirm_text: options.confirm_text,
             deny_text: options.deny_text,
@@ -49,7 +50,8 @@
             dataAttr: 'jConfirm',
             //create tooltip html
             createTooltipHTML: function(){
-                let html = "<div class='jc-tooltip "+helper.class+"' role='tooltip'>";
+                let html = '';
+                html += "<div class='jc-tooltip "+helper.class+"' role='tooltip'>";
                 html += "<div class='jc-arrow'></div>";
                 if( helper.question && helper.question.length > 0 ) {
                     html += "<div class='jc-question'>"+helper.question+"</div>";
@@ -83,11 +85,16 @@
                     html += "<a href='#' data-event='"+btn.event+"' class='jc-button "+btn.class+"'>"+btn.text+"</a>";
                     html += "</div>";
                 });
-
+                //end buttons wrap
                 html += "</div>";
+                //end tooltip
                 html += "</div>";
 
                 return html;
+            },
+            //creates backdrop html if necessary
+            createBackdropHTML: function(){
+               return helper.backdrop ? "<div class='jc-backdrop jc-"+helper.backdrop+"-backdrop'></div>" : false;
             },
             //disable existing options/handlers
             destroy: function(){
@@ -155,8 +162,21 @@
                     //hide existing
                     $.jConfirm.current.hide();
                 }
+                //cache reference to the body
+                const body = $('body');
+                //blurred won't work like the standard separate div backdrop
+                //it has to be applied directly to the dom we're blurring
+                if( helper.backdrop === 'blurred' )
+                {
+                    body.addClass('jc-blurred-body');
+                }
+                //if regular backdrop, append the div
+                else if( helper.backdrop )
+                {
+                    body.append(helper.createBackdropHTML());
+                }
                 //add the tooltip to the dom
-                $('body').append(helper.createTooltipHTML());
+                body.append(helper.createTooltipHTML());
                 //cache tooltip
                 helper.tooltip = $('.jc-tooltip');
                 //attach handlers
@@ -205,6 +225,16 @@
                 helper.dom.attr('aria-describedby', null);
                 //remove from dom
                 helper.tooltip.remove();
+                //remove blurring to body
+                if( helper.backdrop === 'blurred' )
+                {
+                    $('body').removeClass('jc-blurred-body');
+                }
+                //remove backdrop
+                else if( helper.backdrop )
+                {
+                    $('.jc-backdrop').remove();
+                }
                 //remove current
                 $.jConfirm.current = null;
                 //trigger hide event
@@ -469,6 +499,7 @@
         show_deny_btn: true,
         theme: 'black',
         size: 'small',
+        backdrop: false,
     }
 
 })(jQuery);
