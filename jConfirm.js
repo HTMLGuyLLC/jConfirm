@@ -8,6 +8,7 @@
 ;(function($) {
 
     $.fn.jConfirm = function(options) {
+        var this_wrapped = $(this);
 
         //Instantiate jConfirm once per dom element
         if (this.length > 1){
@@ -24,7 +25,7 @@
         }
 
         //get list of options
-        options = $.extend({}, $.jConfirm.defaults, options, $(this).data());
+        options = $.extend({}, $.jConfirm.defaults, options, this_wrapped.data());
 
         //add theme class
         options.class += ' jc-'+options.theme+'-theme';
@@ -33,7 +34,7 @@
 
         let helper = {
             dom: this,
-            dom_wrapped: $(this),
+            dom_wrapped: this_wrapped,
             position_debug: options.position_debug,
             follow_href: options.follow_href,
             open_new_tab: options.open_new_tab,
@@ -48,7 +49,6 @@
             show_deny_btn: options.show_deny_btn,
             position: options.position,
             show_now: options.show_now,
-            target: options.target,
             dataAttr: 'jConfirm',
             //create tooltip html
             createTooltipHTML: function(){
@@ -105,8 +105,8 @@
                 if( typeof existing !== 'undefined' && existing !== null ) {
 
                     //disable handler
-                    existing.dom_wrapped.off('touchstart mousedown', helper.target, existing.toggleTooltipHandler);
-                    existing.dom_wrapped.off('click', helper.target, existing.preventDefaultHandler);
+                    existing.dom_wrapped.off('touchstart mousedown', existing.toggleTooltipHandler);
+                    existing.dom_wrapped.off('click', existing.preventDefaultHandler);
 
                     //attach resize handler to reposition tooltip
                     $(window).off('resize', existing.onResize);
@@ -123,8 +123,8 @@
                 //attach on handler to show tooltip
                 //use touchstart and mousedown just like if you click outside the tooltip to close it
                 //this way it blocks the hide if you click the button a second time to close the tooltip
-                helper.dom_wrapped.on('touchstart mousedown', helper.target, helper.toggleTooltipHandler);
-                helper.dom_wrapped.on('click', helper.target, helper.preventDefaultHandler);
+                helper.dom_wrapped.on('touchstart mousedown', helper.toggleTooltipHandler);
+                helper.dom_wrapped.on('click', helper.preventDefaultHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -507,7 +507,6 @@
         size: 'small',
         backdrop: false,
         show_now: false,
-        target: null,
     }
 
 })(jQuery);
