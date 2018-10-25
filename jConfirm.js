@@ -20,7 +20,7 @@
         //if there's nothing being passed
         if( typeof this === 'undefined' || this.length !== 1 )
         {
-            return false;
+            return this;
         }
 
         //get list of options
@@ -47,6 +47,8 @@
             deny_text: options.deny_text,
             show_deny_btn: options.show_deny_btn,
             position: options.position,
+            show_now: options.show_now,
+            target: options.target,
             dataAttr: 'jConfirm',
             //create tooltip html
             createTooltipHTML: function(){
@@ -103,8 +105,8 @@
                 if( typeof existing !== 'undefined' && existing !== null ) {
 
                     //disable handler
-                    existing.dom_wrapped.off('touchstart mousedown', existing.toggleTooltipHandler);
-                    existing.dom_wrapped.off('click', existing.preventDefaultHandler);
+                    existing.dom_wrapped.off('touchstart mousedown', helper.target, existing.toggleTooltipHandler);
+                    existing.dom_wrapped.off('click', helper.target, existing.preventDefaultHandler);
 
                     //attach resize handler to reposition tooltip
                     $(window).off('resize', existing.onResize);
@@ -121,8 +123,8 @@
                 //attach on handler to show tooltip
                 //use touchstart and mousedown just like if you click outside the tooltip to close it
                 //this way it blocks the hide if you click the button a second time to close the tooltip
-                helper.dom_wrapped.on('touchstart mousedown', helper.toggleTooltipHandler);
-                helper.dom_wrapped.on('click', helper.preventDefaultHandler);
+                helper.dom_wrapped.on('touchstart mousedown', helper.target, helper.toggleTooltipHandler);
+                helper.dom_wrapped.on('click', helper.target, helper.preventDefaultHandler);
 
                 //attach to dom for easy access later
                 helper.dom_wrapped.data(helper.dataAttr, helper);
@@ -474,7 +476,15 @@
 
         helper.destroy();
 
-        return helper.initialize();
+        var initialized = helper.initialize();
+
+        //if showing immediately, do it!
+        if( helper.show_now )
+        {
+            helper.show();
+        }
+
+        return initialized;
     };
 
     $.jConfirm = {};
@@ -496,6 +506,8 @@
         theme: 'black',
         size: 'small',
         backdrop: false,
+        show_now: false,
+        target: null,
     }
 
 })(jQuery);

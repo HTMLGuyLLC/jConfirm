@@ -93,6 +93,11 @@ $(function(){
         theme: 'black',
         //string ('tiny', 'small', 'medium', 'large')
         size: 'small',
+        //boolean: show the tooltip immediately on instantiation
+        show_now: false,
+        //string|null: tie the handler to a child of the supplier dom element (good for dynamically added elements)
+        //for example: $('body').jConfirm({'target':'a.confirm'}).on('confirm', function(){ });
+        target: null,
         //string|false ('black', 'white', 'blurred')
         backdrop: false
   }).on('confirm', function(e){
