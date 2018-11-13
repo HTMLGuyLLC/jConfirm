@@ -380,14 +380,13 @@
                 //see where it fits in relation to the clicked element
                 let fits = {};
                 fits.below = (window_height - (tooltip_height+elem_height+elem_position.top)) > 5;
-                fits.below_half = (window_height - (elem_width/2) - elem_position.top - (tooltip_height/2)) > 5;
                 fits.above = (elem_position.top - tooltip_height) > 5;
-                fits.above_half = (elem_position.top - (elem_width/2) - (tooltip_height/2)) > 5;
+                fits.vertical_half = (elem_position.top + (elem_width/2) - (tooltip_height/2)) > 5;
                 fits.right = (window_width - (tooltip_width+elem_width+elem_position.left)) > 5;
                 fits.right_half = (window_width - elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
                 fits.right_full = (window_width - elem_position.left - tooltip_width) > 5;
                 fits.left = (elem_position.left - tooltip_width) > 5;
-                fits.left_half = (elem_position.left - (elem_width/2) - (tooltip_width/2)) > 5;
+                fits.left_half = (elem_position.left + (elem_width/2) - (tooltip_width/2)) > 5;
                 fits.left_full = (elem_position.left - tooltip_width) > 5;
 
                 //in debug mode, display all details
@@ -395,10 +394,10 @@
                     'Clicked Element': {'Left': elem_position.left, 'Top': elem_position.top},
                 });
                 helper.positionDebug({
-                   'Element Dimensions':{'Height':elem_height, 'Width':elem_width},
-                   'Tooltip Dimensions':{'Height':tooltip_height, 'Width':tooltip_width},
-                   'Window Dimensions':{'Height':window_height, 'Width':window_width},
-                   'Arrow Dimensions':{'Height':arrow_height, 'Width':arrow_width},
+                    'Element Dimensions':{'Height':elem_height, 'Width':elem_width},
+                    'Tooltip Dimensions':{'Height':tooltip_height, 'Width':tooltip_width},
+                    'Window Dimensions':{'Height':window_height, 'Width':window_width},
+                    'Arrow Dimensions':{'Height':arrow_height, 'Width':arrow_width},
                 });
                 helper.positionDebug(fits);
 
@@ -419,14 +418,14 @@
                     left = elem_position.left - (tooltip_width/2) + (elem_width/2);
                     top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
-                else if( (position === 'auto' || position === 'left') && fits.left && fits.below_half && fits.above_half )
+                else if( (position === 'auto' || position === 'left') && fits.left && fits.vertical_half )
                 {
                     helper.positionDebug('Displaying left, centered');
                     arrow_dir = 'right';
                     left = elem_position.left - tooltip_width - (arrow_width/2);
                     top = elem_position.top + (elem_height/2) - (tooltip_height/2);
                 }
-                else if( (position === 'auto' || position === 'right') && fits.right && fits.below_half && fits.above_half )
+                else if( (position === 'auto' || position === 'right') && fits.right && fits.vertical_half )
                 {
                     helper.positionDebug('Displaying right, centered');
                     arrow_dir = 'left';
@@ -436,28 +435,28 @@
                 else if( (position === 'auto' || position === 'bottom') && fits.below && fits.right_full )
                 {
                     helper.positionDebug('Displaying below, to the right');
-                    arrow_dir = 'top jc-arrow-hug-left';
+                    arrow_dir = 'top jt-arrow-hug-left';
                     left = elem_position.left;
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
                 else if( (position === 'auto' || position === 'bottom') && fits.below && fits.left_full )
                 {
                     helper.positionDebug('Displaying below, to the left');
-                    arrow_dir = 'top jc-arrow-hug-right';
+                    arrow_dir = 'top jt-arrow-hug-right';
                     left = elem_position.left + elem_width - tooltip_width;
                     top = elem_position.top + elem_height + (arrow_height/2);
                 }
                 else if( (position === 'auto' || position === 'top') && fits.above && fits.right_full )
                 {
                     helper.positionDebug('Displaying above, to the right');
-                    arrow_dir = 'bottom jc-arrow-hug-left';
+                    arrow_dir = 'bottom jt-arrow-hug-left';
                     left = elem_position.left;
                     top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
                 else if( (position === 'auto' || position === 'top') && fits.above && fits.left_full )
                 {
                     helper.positionDebug('Displaying above, to the left');
-                    arrow_dir = 'bottom jc-arrow-hug-right';
+                    arrow_dir = 'bottom jt-arrow-hug-right';
                     left = elem_position.left + elem_width - tooltip_width;
                     top = elem_position.top - tooltip_height - (arrow_height/2);
                 }
