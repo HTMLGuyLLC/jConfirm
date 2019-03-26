@@ -357,8 +357,8 @@
                 let tooltip_width = helper.tooltip.outerWidth();
                 let tooltip_height = helper.tooltip.outerHeight();
 
-                //if the original element is gone
-                if( helper.dom_wrapped.length === 0 )
+                //if the original element is gone or hidden
+                if( helper.dom_wrapped.length === 0 || !helper.dom_wrapped.is(":visible") )
                 {
                     helper.position = 'auto';
                     return ['none', 0, tooltip_width, tooltip_height, 'undefined'];
