@@ -361,7 +361,7 @@
                 if( helper.dom_wrapped.length === 0 || !helper.dom_wrapped.is(":visible") )
                 {
                     helper.position = 'auto';
-                    return ['none', 0, tooltip_width, tooltip_height, 'undefined'];
+                    return ['none', 0, tooltip_width, tooltip_height];
                 }
 
                 //get position + size of clicked element
