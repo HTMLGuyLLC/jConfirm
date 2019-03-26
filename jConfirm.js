@@ -353,6 +353,17 @@
                 //cache reference to arrow
                 let arrow = helper.tooltip.find('.jc-arrow');
 
+                //get tooltip dimensions
+                let tooltip_width = helper.tooltip.outerWidth();
+                let tooltip_height = helper.tooltip.outerHeight();
+
+                //if the original element is gone
+                if( helper.dom_wrapped.length === 0 )
+                {
+                    helper.position = 'auto';
+                    return ['none', 0, tooltip_width, tooltip_height, 'undefined'];
+                }
+
                 //get position + size of clicked element
                 let elem_position = helper.dom_wrapped.offset();
                 let elem_height = helper.dom_wrapped.outerHeight();
@@ -364,10 +375,6 @@
                 let elem_marg_top = parseInt(helper.dom_wrapped.css('marginTop').replace('px', ''));
                 elem_position.left += elem_marg_left;
                 elem_position.top += elem_marg_top;
-
-                //get tooltip dimensions
-                let tooltip_width = helper.tooltip.outerWidth();
-                let tooltip_height = helper.tooltip.outerHeight();
 
                 //get window dimensions
                 let window_width = document.querySelector('body').offsetWidth;
