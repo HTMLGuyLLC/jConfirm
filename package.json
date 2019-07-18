@@ -2,6 +2,11 @@
   "name": "jconfirm",
   "version": "4.4.4",
   "description": "jQuery confirmation tooltip plugin",
+  "author": { 
+    "name" : "HTMLGuy, LLC", 
+    "url" : "https://htmlguy.com"
+  },
+  "main": "jConfirm.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/HTMLGuyLLC/jConfirm"
@@ -14,8 +19,5 @@
   "dependencies": {
     "jquery": "^3.0.0"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://www.opensource.org/licenses/mit-license.php"
-  }
+  "license": "MIT"
 }
