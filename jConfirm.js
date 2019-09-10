@@ -87,12 +87,9 @@
                     html += `<div class='jc-button-wrap'>
                                 <a href='#' data-event='${btn.event}' class='jc-button ${btn.class}'`;
                     if( typeof btn.data === 'object' ){
-                        const data_attrs = btn.data;
-                        for ( let prop in data_attrs ) {
-                            if (Object.prototype.hasOwnProperty.call(data_attrs, prop)) {
-                                html += ` data-${prop}="${data_attrs[prop]}"`;
-                            }
-                        }
+                        $.each(btn.data, function(prop,val) {
+                            html += ` data-${prop}="${val}"`;
+                        });
                     }
                     html += `>${btn.text}</a>
                             </div>`;
