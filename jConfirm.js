@@ -272,7 +272,7 @@
                     e.preventDefault();
                     const btn = $(this);
                     //trigger event
-                    helper.dom_wrapped.trigger(btn.data('event'));
+                    helper.dom_wrapped.trigger(btn.data('event'), btn.data());
                     //hide helper
                     helper.hide();
                     //follow href

@@ -232,11 +232,11 @@ $('.social-share').jConfirm({
     ]
 }).on('facebook-share', function(e, data){
     var btn = $(this);
-    var data_attr = btn.data('some_data_attr'); //1
+    var data_attr = data.some_data_attr; //1
     console.log('Sharing to facebook: '+btn.data('url-to-share'));
 }).on('twitter-share', function(e, data){
     var btn = $(this);
-    var data_attr = btn.data('some_data_attr'); //2
+    var data_attr = data.some_data_attr; //2
     console.log('Sharing to twitter: '+btn.data('url-to-share'));
 });
 ```
