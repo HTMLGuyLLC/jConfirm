@@ -216,19 +216,27 @@ $('.social-share').jConfirm({
         {
             text:'Facebook',
             event:'facebook-share',
+            data: {
+                some_data_attr: 1
+            },
             class:'facebook-btn jc-button-highlight'
         },
         {
             text:'Twitter',
             event:'twitter-share',
+            data: {
+                some_data_attr: 2
+            },
             class:'twitter-btn jc-button-highlight'
         }
     ]
-}).on('facebook-share', function(e){
+}).on('facebook-share', function(e, data){
     var btn = $(this);
+    var data_attr = btn.data('some_data_attr'); //1
     console.log('Sharing to facebook: '+btn.data('url-to-share'));
-}).on('twitter-share', function(e){
+}).on('twitter-share', function(e, data){
     var btn = $(this);
+    var data_attr = btn.data('some_data_attr'); //2
     console.log('Sharing to twitter: '+btn.data('url-to-share'));
 });
 ```

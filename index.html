@@ -335,16 +335,23 @@
             {
                 text:'&lt;i class="fa fa-facebook">&lt;/i> Facebook',
                 event:'facebook-share',
+                data: {
+                    some_data_attr: 1
+                },
                 class:'facebook-btn'
             },
             {
                 text:'&lt;i class="fa fa-twitter">&lt;/i> Twitter',
                 event:'twitter-share',
+                data: {
+                    some_data_attr: 2
+                },
                 class:'twitter-btn'
             }
         ]
     }).on('facebook-share', function(e){
         var btn = $(this);
+        var data_attr = btn.data('some_data_attr'); //1
         var url = 'http://www.facebook.com/sharer.php?u='+btn.data('url-to-share');
         window.open(
           url,
@@ -352,6 +359,7 @@
         );
     }).on('twitter-share', function(e){
         var btn = $(this);
+        var data_attr = btn.data('some_data_attr'); //2
         var url = 'http://twitter.com/share?text=This%20is%20the%20best!&url='+btn.data('url-to-share');
         window.open(
           url,
