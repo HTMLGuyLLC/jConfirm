@@ -84,6 +84,7 @@
 
                 //loop through buttons and add to html
                 $.each(helper.btns, function(key,btn){
+                    if( typeof btn.class === 'undefined' ) btn.class = '';
                     html += `<div class='jc-button-wrap'>
                                 <a href='#' data-event='${btn.event}' class='jc-button ${btn.class}'`;
                     if( typeof btn.data === 'object' ){
