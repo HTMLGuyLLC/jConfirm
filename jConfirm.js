@@ -86,10 +86,12 @@
                 $.each(helper.btns, function(key,btn){
                     if( typeof btn.class === 'undefined' ) btn.class = '';
                     html += `<div class='jc-button-wrap'>
-                                <a href='#' data-event='${btn.event}' class='jc-button ${btn.class}'`;
+                                <a href='#' data-event='${helper.escapeAttr(btn.event)}' class='jc-button ${helper.escapeAttr(btn.class)}'`;
                     if( typeof btn.data === 'object' ){
                         $.each(btn.data, function(prop,val) {
-                            html += ` data-${prop}="${val}"`;
+                            //skip attribute names that could break out of the tag
+                            if( !/^[\w-]+$/.test(prop) ) return;
+                            html += ` data-${prop}="${helper.escapeAttr(val)}"`;
                         });
                     }
                     html += `>${btn.text}</a>
@@ -100,6 +102,15 @@
                 html += "</div></div>";
 
                 return html;
+            },
+            //escapes a value for use inside an html attribute
+            escapeAttr: function(val){
+                return String(val)
+                    .replace(/&/g, '&amp;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
             },
             //creates backdrop html if necessary
             createBackdropHTML: function(){

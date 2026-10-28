@@ -1,6 +1,6 @@
 {
   "name": "jconfirm",
-  "version": "4.5.3",
+  "version": "4.5.4",
   "description": "jQuery confirmation tooltip plugin",
   "author": { 
     "name" : "HTMLGuy, LLC", 
@@ -17,7 +17,7 @@
   "homepage": "https://htmlguyllc.github.io/jConfirm/",
   "private": false,
   "dependencies": {
-    "jquery": "^3.0.0"
+    "jquery": "^3.5.0"
   },
   "license": "MIT"
 }
